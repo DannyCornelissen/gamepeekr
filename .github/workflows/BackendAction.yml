@@ -30,4 +30,4 @@ jobs:
     - name: Build with MSBuild
       run: |
         msbuild /p:Configuration=Release ../gamepeekr/Backend/GamePeekr/GamePeekr.sln
-      working-directory: gamepeekr/Backend/GamePeekr/GamePeekr
+      working-directory: Backend/GamePeekr/GamePeekr
