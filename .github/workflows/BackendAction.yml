@@ -28,4 +28,5 @@ jobs:
     - name: Build with MSBuild
       run: |
         msbuild /p:Configuration=Release GamePeekr.sln  # Replace YourProject.sln with your solution file
-      working-directory: Backend\GamePeekr  # Adjust the path to your project folder
+      working-directory: gamepeekr\Backend\GamePeekr\GamePeekr
+
