@@ -14,21 +14,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-
-on:
-  push:
-    branches: [ "Development" ]
-  pull_request:
-    branches: [ "Development" ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v1
       with:
@@ -36,32 +21,13 @@ jobs:
 
     - name: Restore Dependencies
       run: dotnet restore
-      working-directory: ./Backend/GamePeekr/GamePeekr
 
     - name: Debug Info
       run: |
         pwd
         ls -la
-        find . -type f
 
     - name: Build with MSBuild
       run: |
         msbuild /p:Configuration=Release ./Backend/GamePeekr/GamePeekr.sln
       working-directory: ./Backend/GamePeekr/GamePeekr
-
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 7.0.202
-
-    - name: Restore Dependencies
-      run: dotnet restore
-
-    - name: Debug Info
-      run: |
-        pwd
-        ls -la
-
-    - name: Build with MSBuild
-      run: |
-        msbuild /p:Configuration=Release ../gamepeekr/Backend/GamePeekr/GamePeekr.sln
-      working-directory: Backend/GamePeekr/GamePeekr
