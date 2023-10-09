@@ -30,3 +30,25 @@ jobs:
     - name: Test Projects
       run: dotnet test --no-build --verbosity normal
       working-directory: Backend/GamePeekr
+  
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Restore Dependencies
+        run: dotnet restore
+        working-directory: Backend/GamePeekr
+
+      - name: Test Projects
+        run: dotnet test --no-build --verbosity normal
+        working-directory: Backend/GamePeekr

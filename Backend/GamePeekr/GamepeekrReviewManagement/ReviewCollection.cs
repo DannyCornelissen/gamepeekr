@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("GamePeekrTest")]
 namespace GamepeekrReviewManagement
 {
     public class ReviewCollection
@@ -22,13 +24,22 @@ namespace GamepeekrReviewManagement
 
         public void GetReviews()
         {
-            List < IReviewEntity> reviewEntityList = _ireview.GetReviews().OrderByDescending(r => r.Likes).ToList(); 
-
+            List<IReviewEntity> reviewEntityList = _ireview.GetReviews();
+            List<Review> reviewList = new List<Review>();
             foreach (IReviewEntity review in reviewEntityList)
             {
                 Review newReview = new Review(review);
-                _reviews.Add(newReview);
+                reviewList.Add(newReview);
             }
+            _reviews.AddRange(OrderReviews(reviewList));
+
+        }
+
+        internal List<Review> OrderReviews(List<Review> reviewList)
+        {
+            List<Review> reviews = reviewList.OrderByDescending(r => r.Likes).ToList();
+
+            return reviews;
         }
     }
 }
