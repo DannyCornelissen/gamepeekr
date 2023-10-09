@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Projects
       run: |
-        msbuild /p:Configuration=Release ./Backend/GamePeekr/GamePeekr.sln
+        msbuild /p:Configuration=Release GamePeekr.sln
       working-directory: ./Backend/GamePeekr
 
     - name: Debug Info
