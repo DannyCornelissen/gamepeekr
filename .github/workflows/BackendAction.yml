@@ -27,11 +27,12 @@ jobs:
       shell: PowerShell
       working-directory: ./Backend/GamePeekr
 
-    - name: Build Projects
-      run: |
-        # Use the full path to msbuild
-        "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" /p:Configuration=Release GamePeekr.sln
-      working-directory: ./Backend/GamePeekr
+   - name: Build Projects
+     run: |
+       # Use double quotes to encapsulate the entire command
+       "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" GamePeekr.sln /p:Configuration=Release
+     working-directory: ./Backend/GamePeekr
+
 
     - name: Debug Info
       run: |
