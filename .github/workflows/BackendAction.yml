@@ -2,37 +2,34 @@ name: GamePeekrBackendBuildAndTest
 
 on:
   push:
-    branches: [ "Development" ]
+    branches:
+      - Development
   pull_request:
-    branches: [ "Development" ]
+    branches:
+      - Development
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 7.0.202
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.0.202
 
-    - name: Restore Dependencies
-      run: dotnet restore
-      working-directory: ./Backend/GamePeekr
+      - name: Restore Dependencies
+        run: dotnet restore
+        working-directory: ./Backend/GamePeekr
 
-    - name: List Directory Contents
-      run: Get-ChildItem -Force -Recurse ./Backend/GamePeekr
-      shell: PowerShell
-      working-directory: ./Backend/GamePeekr
+      - name: Build Projects
+        run: |
+          dotnet build --configuration Release
+        working-directory: ./Backend/GamePeekr
 
-    - name: Build Projects
-      run: |
-        # Use & to invoke msbuild with arguments
-        & "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" GamePeekr.sln /p:Configuration=Release
-      working-directory: ./Backend/GamePeekr
-
-    - name: Debug Info
-      run: |
-        echo Current Directory: %cd%
+      - name: Debug Info
+        run: |
+          echo Current Directory: %cd%
