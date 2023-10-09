@@ -23,6 +23,9 @@ jobs:
       run: dotnet restore
       working-directory: ./Backend/GamePeekr
 
+    - name: List Directory Contents
+      run: ls -la ./Backend/GamePeekr
+
     - name: Build Projects
       run: |
         msbuild /p:Configuration=Release ./Backend/GamePeekr/GamePeekr.sln
@@ -32,4 +35,3 @@ jobs:
       run: |
         pwd
         ls -la
-
