@@ -53,12 +53,14 @@ jobs:
         working-directory: Backend/GamePeekr
 
       - name: Test Projects
-        run:  dotnet test --settings test.runsettings
+        run:  dotnet test --logger "trx;LogFileName=test-results.trx"
         working-directory: Backend/GamePeekr/GamePeekrTest
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.10.0
+      - name: Test Report
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          files: |
-            Backend/GamePeekr/OwnTestResult/MyTestResults.xml
+          name: DotNET Tests
+          path: "**/test-results.trx"                            
+          reporter: dotnet-trx
+          fail-on-error: true
