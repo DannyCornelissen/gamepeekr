@@ -53,7 +53,7 @@ jobs:
         working-directory: Backend/GamePeekr
 
       - name: Test Projects
-        run:  dotnet test --settings test.runsetting
+        run:  dotnet test --settings test.runsettings
         working-directory: Backend/GamePeekr/GamePeekrTest
 
       - name: Publish Test Results
