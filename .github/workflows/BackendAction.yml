@@ -64,4 +64,4 @@ jobs:
         if: always()
         with:
           files: |
-            TestResults/ResultDoc.xml
+            CICDTestResults/ResultDoc.xml
