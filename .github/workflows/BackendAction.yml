@@ -53,7 +53,7 @@ jobs:
         working-directory: Backend/GamePeekr
 
       - name: Test Projects
-        run: dotnet test --verbosity normal
+        run:  dotnet test --settings test.runsetting
         working-directory: Backend/GamePeekr
 
       - name: Publish Test Results
@@ -61,4 +61,4 @@ jobs:
         if: always()
         with:
           files: |
-            CICDTestResults/ResultDoc.xml
+            Backend/GamePeekr/OwnTestResult/MyTestResult.xml
