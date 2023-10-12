@@ -33,9 +33,6 @@ jobs:
       run: dotnet build --no-restore
       working-directory: Backend/GamePeekr
     
-    - name: Test Projects
-      run: dotnet test --no-build --verbosity normal
-      working-directory: Backend/GamePeekr
   
   
   test:
