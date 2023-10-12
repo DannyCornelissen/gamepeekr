@@ -54,11 +54,11 @@ jobs:
 
       - name: Test Projects
         run:  dotnet test --settings test.runsetting
-        working-directory: Backend/GamePeekr
+        working-directory: Backend/GamePeekr/GamePeekrTest
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2.10.0
         if: always()
         with:
           files: |
-            Backend/GamePeekr/OwnTestResult/MyTestResult.xml
+            Backend/GamePeekr/OwnTestResult/MyTestResults.xml
