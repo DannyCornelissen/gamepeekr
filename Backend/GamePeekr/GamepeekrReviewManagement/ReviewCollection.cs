@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GamePeekrEntityLayer;
 
 namespace GamepeekrReviewManagement
 {
@@ -22,9 +23,9 @@ namespace GamepeekrReviewManagement
 
         public void GetReviews()
         {
-            List < IReviewEntity> reviewEntityList = _ireview.GetReviews().OrderByDescending(r => r.Likes).ToList(); 
+            List<ReviewEntity> reviewEntityList = _ireview.GetReviews().OrderByDescending(r => r.Likes).ToList(); 
 
-            foreach (IReviewEntity review in reviewEntityList)
+            foreach (ReviewEntity review in reviewEntityList)
             {
                 Review newReview = new Review(review);
                 _reviews.Add(newReview);

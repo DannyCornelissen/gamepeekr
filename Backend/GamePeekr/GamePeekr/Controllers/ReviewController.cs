@@ -1,4 +1,5 @@
-﻿using GamePeekr.DTOs;
+﻿using System.Linq.Expressions;
+using GamePeekr.DTOs;
 using GamepeekrReviewManagement;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,31 +18,48 @@ namespace GamePeekr.Controllers
         }
         // GET: api/<ReviewController>
         [HttpGet]
-        public IEnumerable<ReviewGetDTO> Get()
+        public IActionResult Get()
         {
-            ReviewCollection reviewCollection = new ReviewCollection(_ireview);
-            ReviewGetDTOList reviewGetDTOList = new ReviewGetDTOList();
-            reviewCollection.GetReviews();
-
-            foreach (Review review in reviewCollection.Reviews)
+           
+            try
             {
-               ReviewGetDTO reviewDTO = new ReviewGetDTO(review);
-               reviewGetDTOList.ReviewGetDTOs.Add(reviewDTO);
+                ReviewCollection reviewCollection = new ReviewCollection(_ireview);
+                ReviewGetDTOList reviewGetDTOList = new ReviewGetDTOList();
+                reviewCollection.GetReviews();
+
+                foreach (Review review in reviewCollection.Reviews)
+                {
+                    ReviewGetDTO reviewDTO = new ReviewGetDTO(review);
+                    reviewGetDTOList.ReviewGetDTOs.Add(reviewDTO);
+                }
+
+                return Ok(reviewGetDTOList.ReviewGetDTOs);
+            }
+            catch
+            {
+                return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
             }
 
-            return reviewGetDTOList.ReviewGetDTOs;
 
         }
     
 
         // GET api/<ReviewController>/5
         [HttpGet("{id}")]
-        public ReviewGetByIdDTO Get(Guid id)
+        public IActionResult Get(Guid id)
         {
-            Review review = new Review(_ireview);
-            review.GetReviewById(id);
-            ReviewGetByIdDTO reviewGetByIdDTO = new ReviewGetByIdDTO(review);
-            return reviewGetByIdDTO;
+
+            try
+            {
+                Review review = new Review(_ireview);
+                review.GetReviewById(id);
+                ReviewGetByIdDTO reviewGetByIdDTO = new ReviewGetByIdDTO(review);
+                return Ok(reviewGetByIdDTO);
+            }
+            catch
+            {
+                return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
+            }
         }
 
         // POST api/<ReviewController>
