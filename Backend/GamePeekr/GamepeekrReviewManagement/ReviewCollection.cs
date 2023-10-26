@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GamePeekrEntityLayer;
 
 [assembly: InternalsVisibleTo("GamePeekrTest")]
 namespace GamepeekrReviewManagement
@@ -24,9 +25,9 @@ namespace GamepeekrReviewManagement
 
         public void GetReviews()
         {
-            List<IReviewEntity> reviewEntityList = _ireview.GetReviews();
+            List<ReviewEntity> reviewEntityList = _ireview.GetReviews().OrderByDescending(r => r.Likes).ToList(); 
             List<Review> reviewList = new List<Review>();
-            foreach (IReviewEntity review in reviewEntityList)
+            foreach (ReviewEntity review in reviewEntityList)
             {
                 Review newReview = new Review(review);
                 reviewList.Add(newReview);

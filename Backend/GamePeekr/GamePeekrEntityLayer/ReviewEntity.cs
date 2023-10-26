@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GamepeekrReviewManagement;
 
-namespace GamePeekrReviewManagementDAL
+namespace GamePeekrEntityLayer
 {
-    public class ReviewEntity : IReviewEntity
+    public class ReviewEntity
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -18,3 +17,4 @@ namespace GamePeekrReviewManagementDAL
         public int Likes { get; set; }
     }
 }
+

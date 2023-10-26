@@ -1,4 +1,6 @@
-﻿using GamepeekrReviewManagement;
+﻿using GamePeekrEntityLayer;
+using GamepeekrReviewManagement;
+using Microsoft.Extensions.Logging;
 
 
 namespace GamePeekrReviewManagementDAL
@@ -6,26 +8,43 @@ namespace GamePeekrReviewManagementDAL
     public class ReviewRepository:IReview
     {
         private readonly GamekeeprDBContext _context;
-  
-        public ReviewRepository(GamekeeprDBContext context)
+        private readonly ILogger<ReviewRepository> _logger;
+
+        public ReviewRepository(GamekeeprDBContext context, ILogger<ReviewRepository> logger)
         {
             _context = context;
+            _logger = logger;
+
 
         }
-        public List<IReviewEntity> GetReviews()
+        public List<ReviewEntity> GetReviews()
         {
-            List<IReviewEntity> reviews = _context.Review
-                .Select(r => (IReviewEntity)r)
-                .ToList();
+            try
+            {
+                List<ReviewEntity> reviews = _context.Review.ToList();
 
-            return reviews;
+                return reviews;
+            }
+            catch (Exception sqlE )
+            {
+                _logger.LogError(sqlE, "An error occurred while getting reviews.");
+                throw ;
+            }
         }
 
-        public IReviewEntity GetReviewById(Guid id)
+        public ReviewEntity GetReviewById(Guid id)
         {
-            IReviewEntity review = _context.Review.Select(r => (IReviewEntity)r).Where(r => r.Id == id).First();
+            try
+            {
+                ReviewEntity review = _context.Review.Where(r => r.Id == id).First();
 
-            return review;
+                return review;
+            }
+            catch (Exception sqlE)
+            {
+                _logger.LogError(sqlE, "An error occurred while getting the review.");
+                throw;
+            }
         }
 
     }

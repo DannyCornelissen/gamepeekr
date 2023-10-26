@@ -1,8 +1,9 @@
-﻿namespace GamepeekrReviewManagement;
+﻿using GamePeekrEntityLayer;
+namespace GamepeekrReviewManagement;
 
 
 public interface IReview
 {
-    public List<IReviewEntity> GetReviews();
-    public IReviewEntity GetReviewById(Guid id);
+    public List<ReviewEntity> GetReviews();
+    public ReviewEntity GetReviewById(Guid id);
 }

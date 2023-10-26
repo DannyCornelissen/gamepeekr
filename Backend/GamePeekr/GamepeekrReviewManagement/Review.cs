@@ -1,5 +1,7 @@
 ﻿
 
+using GamePeekrEntityLayer;
+
 namespace GamepeekrReviewManagement
 {
     public class Review
@@ -16,7 +18,7 @@ namespace GamepeekrReviewManagement
         public int Likes { get; set; }
 
 
-        public Review(IReviewEntity reviewEntity)
+        public Review(ReviewEntity reviewEntity)
         {
             toReview(reviewEntity);
         }
@@ -26,7 +28,7 @@ namespace GamepeekrReviewManagement
            _ireview = ireview;
         }
 
-        private void toReview(IReviewEntity reviewEntity)
+        private void toReview(ReviewEntity reviewEntity)
         {
             Id = reviewEntity.Id;
             Title = reviewEntity.Title;

@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GamePeekrEntityLayer;
+using Microsoft.EntityFrameworkCore;
+
+
 namespace GamePeekrReviewManagementDAL
 {
     public class GamekeeprDBContext: DbContext
