@@ -4,12 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import APILink from '../ReusableComponents/Config';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp, faStar } from '@fortawesome/free-solid-svg-icons';
+import { Alert } from 'react-bootstrap';
 
 function ReviewRetrieverById() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false)
+  const [errorAlert, setErrorAlert] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -27,6 +29,7 @@ function ReviewRetrieverById() {
         console.error('Error fetching data:', error);
         setLoading(false);
         setError(true);
+        setErrorAlert("We had some problems retrieving this review, try again later");
       }
     }
 
@@ -44,7 +47,14 @@ function ReviewRetrieverById() {
   if(error)
   {
     return(
-      <div>Er waren wat problemen met het ophalen van deze review, probeer het later opniew.</div>
+      <div>
+              {errorAlert && (
+        <Alert variant="danger">
+          {errorAlert}
+        </Alert>
+      )}
+      </div>
+
     )
   }
 

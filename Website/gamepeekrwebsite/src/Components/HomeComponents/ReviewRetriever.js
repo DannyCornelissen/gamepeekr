@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import APILink from '../ReusableComponents/Config';
+import { Alert } from 'react-bootstrap';
 
 function ReviewRetriever() {
   const [data, setData] = useState([]);
@@ -9,6 +10,8 @@ function ReviewRetriever() {
   const [redirection, setRedirection] = useState(false);
   const [redirectionId, setRedirectionId] = useState(0);
   const [error, setError] = useState(false)
+  const [errorAlert, setErrorAlert] = useState(false)
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -25,6 +28,7 @@ function ReviewRetriever() {
         console.error('Error fetching data:', error);
         setLoading(false);
         setError(true)
+        setErrorAlert("We hade some issues retrieving the reviews. Try again later")
       }
     }
 
@@ -44,7 +48,11 @@ function ReviewRetriever() {
   {
     return (
       <div>
-        there was a problem retrieving the reviews. Please try again later
+        {errorAlert && (
+          <Alert variant="danger">
+            {errorAlert}
+          </Alert>
+       )}
       </div>
     )
   }
