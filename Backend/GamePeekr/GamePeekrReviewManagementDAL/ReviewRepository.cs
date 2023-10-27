@@ -47,5 +47,19 @@ namespace GamePeekrReviewManagementDAL
             }
         }
 
+        public void AddReview(ReviewEntity reviewEntity)
+        {
+            try
+            {
+                _context.Review.Add(reviewEntity);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An error occurred while adding the review.");
+                throw;
+            }
+
+        }
     }
 }

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrReviewManagementDA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrEntityLayer", "GamePeekrEntityLayer\GamePeekrEntityLayer.csproj", "{147266B9-5900-48BF-89DE-CD6DBFC8E651}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrTest", "GamePeekrTest\GamePeekrTest.csproj", "{8595937C-1267-48A2-8D79-A389EA9E063A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{147266B9-5900-48BF-89DE-CD6DBFC8E651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{147266B9-5900-48BF-89DE-CD6DBFC8E651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{147266B9-5900-48BF-89DE-CD6DBFC8E651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8595937C-1267-48A2-8D79-A389EA9E063A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8595937C-1267-48A2-8D79-A389EA9E063A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8595937C-1267-48A2-8D79-A389EA9E063A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8595937C-1267-48A2-8D79-A389EA9E063A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

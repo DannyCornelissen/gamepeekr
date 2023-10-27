@@ -1,7 +1,7 @@
 import React from 'react';
-import ReviewRetriever from './ReviewRetriever';
-import Menu from '../ReusableComponents/Menu';
-import Head from '../ReusableComponents/Head'
+import ReviewRetriever from '../Components/HomeComponents/ReviewRetriever';
+import Menu from '../Components/ReusableComponents/Menu';
+import Head from '../Components/ReusableComponents/Head'
 
 
 

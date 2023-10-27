@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using GamePeekr.DTOs;
+using GamePeekrEntityLayer;
 using GamepeekrReviewManagement;
 using Microsoft.AspNetCore.Mvc;
 
@@ -64,8 +65,24 @@ namespace GamePeekr.Controllers
 
         // POST api/<ReviewController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] ReviewPostDTO review)
         {
+            try
+            {
+                Review newReview = new Review(review.Title, review.ReviewText, review.Rating, review.Game, _ireview);
+                ReviewCheckEnum.ReviewCheck check = newReview.checkReviewContent();
+                if (check == ReviewCheckEnum.ReviewCheck.CorrectTitleAndReviewText)
+                {
+                    newReview.AddReview();
+                    return Ok();
+                }
+                return StatusCode(400, check);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
+            }
+
         }
 
         // PUT api/<ReviewController>/5

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 const Menu = () => {
   const navigate = useNavigate();
   const [menuItems] = useState([
     { id: 1, title: 'Home' },
+    {id: 2, title: "Add new review ", icon: faCirclePlus}
   ]);
 
   const menuStyle = {
@@ -27,8 +30,11 @@ const Menu = () => {
   const handleItemClick = (title) => {
     switch(title)
     {
-      case 'Home':
+      case 1:
         navigate('/');
+        break;
+      case 2:
+        navigate('/AddReviewPage')
         break;
     } 
   }
@@ -39,9 +45,13 @@ const Menu = () => {
         <li
           key={item.id}
           style={itemStyle}
-          onClick={() => handleItemClick(item.title)} 
+          onClick={() => handleItemClick(item.id)} 
         >
           {item.title}
+          {item.icon && 
+          (
+           <FontAwesomeIcon icon={item.icon} style={{ marginRight: '2px' }} />
+          )}
         </li>
       ))}
     </ul>

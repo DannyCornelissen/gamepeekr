@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ReviewRetrieverById from './ReviewRetrieverById.';
-import Menu from '../ReusableComponents/Menu';
-import Head from '../ReusableComponents/Head';
+import ReviewRetrieverById from '../Components/ReviewComponents/ReviewRetrieverById';
+import Menu from '../Components/ReusableComponents/Menu';
+import Head from '../Components/ReusableComponents/Head';
 
 
 

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GamePeekrEntityLayer\GamePeekrEntityLayer.csproj" />
     <ProjectReference Include="..\GamePeekrReviewManagementDAL\GamePeekrReviewManagementDAL.csproj" />
     <ProjectReference Include="..\GamepeekrReviewManagement\GamepeekrReviewManagement.csproj" />
   </ItemGroup>
