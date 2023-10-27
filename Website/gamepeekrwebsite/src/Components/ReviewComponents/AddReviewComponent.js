@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import APILink from '../ReusableComponents/Config';
 import { Navigate } from 'react-router-dom';
-import { Alert } from 'react-bootstrap'; // Import Bootstrap Alert component and styles
+import { Alert } from 'react-bootstrap';
 
 function AddReviewComponent() {
   const [postData, setPostData] = useState({
@@ -12,7 +12,7 @@ function AddReviewComponent() {
     game: ""
   });
   const [navigation, setNavigation] = useState(false);
-  const [errorAlert, setErrorAlert] = useState(null); // State for displaying error alerts
+  const [errorAlert, setErrorAlert] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +29,8 @@ function AddReviewComponent() {
       await axios.post(`${APILink}/api/Review`, postData);
       setNavigation(true);
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error.response.status === 400)
+       {
         const reviewCheck = error.response.data;
         const response = await axios.get(`${APILink}/api/ReviewStatusEnum/${reviewCheck}`);
         switch (response.data) {
@@ -43,8 +44,12 @@ function AddReviewComponent() {
             setErrorAlert("Title and review text are too long");
             break;
           default:
-            setErrorAlert("An unknown error occurred"); // Handle other error cases
+            setErrorAlert("An unknown error occurred");
         }
+      }
+      else
+      {
+        setErrorAlert("We are having some problems try again later")
       }
     }
   };
