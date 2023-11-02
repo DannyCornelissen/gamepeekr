@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GamePeekrReviewManagementDAL
 {
-    public class GamekeeprDBContext: DbContext
+    public class GamePeekrDBContext: DbContext
     {
         public DbSet<ReviewEntity> Review { get; set; }
 
-        public GamekeeprDBContext(DbContextOptions<GamekeeprDBContext> options) : base(options)
+        public GamePeekrDBContext(DbContextOptions<GamePeekrDBContext> options) : base(options)
         {
 
         }

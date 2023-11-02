@@ -13,12 +13,28 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<GamekeeprDBContext>(options =>
+
+string environment = builder.Environment.EnvironmentName;
+
+// Use different configurations based on the environment
+if (environment == "Testing")
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("myDb1"));
-}, ServiceLifetime.Transient);
+    builder.Services.AddDbContext<GamePeekrDBContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("TestGamePeekrDB"));
+    }, ServiceLifetime.Transient);
+
+}
+else
+{
+    builder.Services.AddDbContext<GamePeekrDBContext>(options =>
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("GamePeekrDB"));
+    }, ServiceLifetime.Transient);
+}
 
 builder.Services.AddScoped<IReview, ReviewRepository>();
+
 
 
 
@@ -44,3 +60,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program
+{
+
+}

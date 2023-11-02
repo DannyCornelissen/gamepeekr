@@ -67,8 +67,8 @@ namespace GamePeekr.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] ReviewPostDTO review)
         {
-            try
-            {
+           // try
+          //  {
                 Review newReview = new Review(review.Title, review.ReviewText, review.Rating, review.Game, _ireview);
                 ReviewCheckEnum.ReviewCheck check = newReview.checkReviewContent();
                 if (check == ReviewCheckEnum.ReviewCheck.CorrectTitleAndReviewText)
@@ -77,11 +77,11 @@ namespace GamePeekr.Controllers
                     return Ok();
                 }
                 return StatusCode(400, check);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
-            }
+          //  }
+          //  catch (Exception e)
+          //  {
+          //      return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
+         //   }
 
         }
 

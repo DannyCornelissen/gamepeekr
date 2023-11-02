@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GamePeekrReviewManagementDAL.Migrations
 {
-    [DbContext(typeof(GamekeeprDBContext))]
+    [DbContext(typeof(GamePeekrDBContext))]
     [Migration("20231001134710_initialGamepeekrMigration")]
     partial class initialGamepeekrMigration
     {

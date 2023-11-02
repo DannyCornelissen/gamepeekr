@@ -7,10 +7,10 @@ namespace GamePeekrReviewManagementDAL
 {
     public class ReviewRepository:IReview
     {
-        private readonly GamekeeprDBContext _context;
+        private readonly GamePeekrDBContext _context;
         private readonly ILogger<ReviewRepository> _logger;
 
-        public ReviewRepository(GamekeeprDBContext context, ILogger<ReviewRepository> logger)
+        public ReviewRepository(GamePeekrDBContext context, ILogger<ReviewRepository> logger)
         {
             _context = context;
             _logger = logger;

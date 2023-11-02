@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GamePeekrReviewManagementDAL.Migrations
 {
-    [DbContext(typeof(GamekeeprDBContext))]
+    [DbContext(typeof(GamePeekrDBContext))]
     partial class GamekeeprDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
