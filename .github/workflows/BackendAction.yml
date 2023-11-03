@@ -40,6 +40,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Test Projects
         run:  dotnet test --logger "trx;LogFileName=test-results.trx"
         working-directory: Backend/GamePeekr/GamePeekrTest
