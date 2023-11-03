@@ -1,5 +1,5 @@
 ﻿
-public class ReviewDeserialiseObject
+public class SimpleReviewDeserialiseObject
 {
     public string id { get; set; }
     public string title { get; set; }

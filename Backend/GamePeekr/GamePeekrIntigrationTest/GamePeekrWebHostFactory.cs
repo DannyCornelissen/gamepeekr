@@ -11,9 +11,10 @@ namespace GamePeekrIntigrationTest
 {
     internal class GamePeekrWebHostFactory: WebApplicationFactory<Program>
     {
+        private const string environment = "Testing";
          protected override void ConfigureWebHost(IWebHostBuilder builder)
          {
-             builder.UseEnvironment("Testing");
+             builder.UseEnvironment(environment);
              builder.UseUrls("http://localhost:3200");
          }
     }
