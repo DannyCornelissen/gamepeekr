@@ -21,7 +21,8 @@ if (environment == "Testing")
 {
     builder.Services.AddDbContext<GamePeekrDBContext>(options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("TestGamePeekrDB"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("TestGamePeekrDB"),
+            options => options.EnableRetryOnFailure(2));
     }, ServiceLifetime.Transient);
 
 }
@@ -29,9 +30,11 @@ else
 {
     builder.Services.AddDbContext<GamePeekrDBContext>(options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("GamePeekrDB"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("GamePeekrDB"), 
+        options=> options.EnableRetryOnFailure(2));
     }, ServiceLifetime.Transient);
 }
+
 
 builder.Services.AddScoped<IReview, ReviewRepository>();
 

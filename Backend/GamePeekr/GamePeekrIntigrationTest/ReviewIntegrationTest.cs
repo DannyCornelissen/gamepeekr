@@ -24,7 +24,8 @@ namespace GamePeekrIntigrationTest
             var factory = new GamePeekrWebHostFactory();
             _client = factory.CreateClient();
             var options = new DbContextOptionsBuilder<GamePeekrDBContext>();
-            options.UseSqlServer("Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;");
+            options.UseSqlServer("Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;",
+                options => options.EnableRetryOnFailure(2));
             GamePeekrDBContext context = new GamePeekrDBContext(options.Options);
             context.Database.Migrate();
             context.Database.EnsureCreated();
