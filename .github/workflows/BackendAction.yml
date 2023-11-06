@@ -32,9 +32,7 @@ jobs:
     - name: Build Projects
       run: dotnet build --no-restore
       working-directory: Backend/GamePeekr
-    
-  
-  
+     
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -57,6 +55,7 @@ jobs:
           fail-on-error: true
 
   Build-sonarQube:
+    needs: build
     name: Build and analyze
     runs-on: windows-latest
     steps:
