@@ -20,15 +20,10 @@ jobs:
       mssql:
         image: mcr.microsoft.com/mssql/server:2019-latest
         env:
-          SA_PASSWORD: "Butterfly@1"
-          ACCEPT_EULA: "Y"
+          SA_PASSWORD: Butterfly@1
+          ACCEPT_EULA: Y
         ports:
           - 1433:1433
-        options: >-
-         --health-cmd='(/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "Butterfly@1" -Q "SELECT 1") || exit 1'
-         --health-interval=10s
-         --health-timeout=5s
-         --health-retries=5
 
     steps:
       - name: Set up JDK 17
@@ -121,6 +116,8 @@ jobs:
       - name: Test Projects
         run:  dotnet test --logger "trx;LogFileName=test-results-integration.trx"
         working-directory: Backend/GamePeekr/GamePeekrIntigrationTest
+        env:
+         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
