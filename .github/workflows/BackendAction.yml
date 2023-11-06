@@ -93,7 +93,7 @@ jobs:
           fail-on-error: true
 
   IntegrationTest:
-    needs: build
+    needs: test
     runs-on: ubuntu-latest
     services:
       mssql:
@@ -118,7 +118,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: GamePeekr-BackEnd-Tests
+          name: GamePeekr-BackEnd-Integration-Tests
           path: "**/test-results-integration.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
