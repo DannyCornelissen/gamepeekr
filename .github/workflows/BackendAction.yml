@@ -73,11 +73,14 @@ jobs:
         working-directory: Backend/GamePeekr
       
       - name: Run migrations
-        run: dotnet ef database update --connection "Server=localhost,1433;Database=GamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
+        run: |
+          dotnet run --project Backend/GamePeekr/GamePeekrReviewManagementDAL
+        env:
+          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
       
       - name: Analyze with SonarCloud
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
