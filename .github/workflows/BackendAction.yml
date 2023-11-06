@@ -74,7 +74,7 @@ jobs:
       
       - name: Run migrations
         run: |
-          dotnet run --project Backend/GamePeekr/GamePeekrReviewManagementDAL
+          dotnet run --project Backend/GamePeekr/GamePeekr
         env:
           ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
       
