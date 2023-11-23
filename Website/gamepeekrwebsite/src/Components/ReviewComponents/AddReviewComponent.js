@@ -3,7 +3,7 @@ import axios from "axios";
 import APILink from '../ReusableComponents/Config';
 import { Navigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
-
+import {auth} from '../../Utils/firebase.utils'
 
 function AddReviewComponent() {
   const [postData, setPostData] = useState({
@@ -55,9 +55,10 @@ function AddReviewComponent() {
     }
   };
 
-  if (navigation) {
+  if (navigation || auth.currentUser == null) {
     return <Navigate to={"/"} />;
-  } else {
+  } 
+  else {
     return (
       <div className="container mt-4">
         <h1 className="mb-4">Post a Review</h1>
