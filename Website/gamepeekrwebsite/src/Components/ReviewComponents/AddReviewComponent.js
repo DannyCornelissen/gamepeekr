@@ -4,6 +4,8 @@ import APILink from '../ReusableComponents/Config';
 import { Navigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import {auth} from '../../Utils/firebase.utils'
+import {PostReviewData} from '../DataAccessComponents/GamePeekrAPICalls';
+import { GetAll } from "../DataAccessComponents/GamePeekrAPICalls";
 
 function AddReviewComponent() {
   const [postData, setPostData] = useState({
@@ -26,15 +28,20 @@ function AddReviewComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await axios.post(`${APILink}/api/Review`, postData);
+    try 
+    {
+      await PostReviewData(postData);
       setNavigation(true);
-    } catch (error) {
+    } 
+    catch (error)
+    {
+      console.log(error.response.status)
       if (error.response.status === 400)
        {
         const reviewCheck = error.response.data;
-        const response = await axios.get(`${APILink}/api/ReviewStatusEnum/${reviewCheck}`);
-        switch (response.data) {
+        const response = await GetAll(`${APILink}/api/ReviewStatusEnum/${reviewCheck}`);
+        console.log(response) //remove later
+        switch (response) {
           case "BadTitle":
             setErrorAlert("Title is too long");
             break;

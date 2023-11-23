@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import APILink from '../ReusableComponents/Config';
 import { Alert } from 'react-bootstrap';
-
+import { GetAll } from '../DataAccessComponents/GamePeekrAPICalls';
 function ReviewRetriever() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,23 +15,19 @@ function ReviewRetriever() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`${APILink}/api/Review`);
-        if (!response.ok) {
-          setError(true)
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const incomingData = await response.json();
+        const response = await GetAll(`${APILink}/api/Review/`);
+        const incomingData = response
         setData(incomingData);
         setLoading(false);
-      } catch (error) {
+      } 
+      catch (error)
+      {
         console.error('Error fetching data:', error);
         setLoading(false);
         setError(true)
         setErrorAlert("We hade some issues retrieving the reviews. Try again later")
       }
     }
-
     fetchData();
   }, []);
 
