@@ -1,8 +1,9 @@
-﻿using GamePeekrEntityLayer;
-namespace GamepeekrReviewManagement;
+﻿using GamePeekrEntities;
+
+namespace GamepeekrReviewManagement.Interfaces;
 
 
-public interface IReview
+public interface IreviewRepository
 {
     public List<ReviewEntity> GetReviews();
     public ReviewEntity GetReviewById(Guid id);

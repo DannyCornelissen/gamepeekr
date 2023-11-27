@@ -1,5 +1,5 @@
 ﻿using GamePeekr.DTOs;
-using GamePeekrEntityLayer;
+using GamePeekrEntities;
 using GamepeekrReviewManagement.Helpers;
 using Microsoft.AspNetCore.Mvc;
 

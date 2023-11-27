@@ -1,11 +1,11 @@
-﻿using GamePeekrEntityLayer;
-using GamepeekrReviewManagement;
+﻿using GamePeekrEntities;
+using GamepeekrReviewManagement.Interfaces;
 using Microsoft.Extensions.Logging;
 
 
-namespace GamePeekrReviewManagementDAL
+namespace GamePeekrReviewManagementDAL.Repositories
 {
-    public class ReviewRepository:IReview
+    public class ReviewRepository : IreviewRepository
     {
         private readonly GamePeekrDBContext _context;
         private readonly ILogger<ReviewRepository> _logger;
@@ -25,10 +25,10 @@ namespace GamePeekrReviewManagementDAL
 
                 return reviews;
             }
-            catch (Exception sqlE )
+            catch (Exception sqlE)
             {
                 _logger.LogError(sqlE, "An error occurred while getting reviews.");
-                throw ;
+                throw;
             }
         }
 

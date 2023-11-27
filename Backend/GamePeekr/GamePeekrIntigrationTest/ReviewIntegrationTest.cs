@@ -3,7 +3,7 @@
 using System.Net.Http.Json;
 using System.Text;
 using GamePeekr.DTOs;
-using GamePeekrEntityLayer;
+using GamePeekrEntities;
 using GamePeekrIntigrationTest.ReviewJsonSerialiseDeserialiseObjects;
 using GamePeekrReviewManagementDAL;
 using Microsoft.EntityFrameworkCore;
@@ -98,12 +98,15 @@ namespace GamePeekrIntigrationTest
 
             _context.Database.Migrate();
             _context.Database.EnsureCreated();
+
+            UserEntity user = DatabaseSeeder.CreateUserEntity(_context);
             var reviewData = new DetailReviewDeserialiseObject()
             {
                 title = "inserted title",
                 reviewText = "inserted reviewtext",
                 rating = 0,
-                game = "string"
+                game = "string",
+                userId = user.Id
             };
             string jsonContent = JsonConvert.SerializeObject(reviewData);
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");

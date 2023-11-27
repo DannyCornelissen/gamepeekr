@@ -1,7 +1,10 @@
 ﻿using System.Linq.Expressions;
 using GamePeekr.DTOs;
-using GamePeekrEntityLayer;
+using GamePeekrEntities;
 using GamepeekrReviewManagement;
+using GamepeekrReviewManagement.Classes;
+using GamepeekrReviewManagement.Interfaces;
+using GamepeekrReviewManagement.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,10 +15,12 @@ namespace GamePeekr.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        private readonly IReview _ireview;
-        public ReviewController(IReview ireview)
+        private readonly IreviewRepository _ireview;
+        private readonly IUserRepository _iuser;
+        public ReviewController(IreviewRepository ireview, IUserRepository iuser)
         {
             _ireview = ireview;
+            _iuser = iuser;
         }
         // GET: api/<ReviewController>
         [HttpGet]
@@ -24,11 +29,11 @@ namespace GamePeekr.Controllers
            
             try
             {
-                ReviewCollection reviewCollection = new ReviewCollection(_ireview);
+                ReviewService reviewCollection = new ReviewService(_ireview);
                 ReviewGetDTOList reviewGetDTOList = new ReviewGetDTOList();
                 reviewCollection.GetReviews();
 
-                foreach (Review review in reviewCollection.Reviews)
+                foreach (Review review in reviewCollection.GetReviews())
                 {
                     ReviewGetDTO reviewDTO = new ReviewGetDTO(review);
                     reviewGetDTOList.ReviewGetDTOs.Add(reviewDTO);
@@ -52,9 +57,9 @@ namespace GamePeekr.Controllers
 
             try
             {
-                Review review = new Review(_ireview);
-                review.GetReviewById(id);
-                ReviewGetByIdDTO reviewGetByIdDTO = new ReviewGetByIdDTO(review);
+                ReviewService reviewService = new ReviewService(_ireview);
+                Review reviewById = reviewService.GetReviewById(id);
+                ReviewGetByIdDTO reviewGetByIdDTO = new ReviewGetByIdDTO(reviewById);
                 return Ok(reviewGetByIdDTO);
             }
             catch
@@ -63,26 +68,23 @@ namespace GamePeekr.Controllers
             }
         }
 
-        // POST api/<ReviewController>
+        //POST api/<ReviewController>
         [HttpPost]
         public IActionResult Post([FromBody] ReviewPostDTO review)
         {
-            try
-            {
-                Review newReview = new Review(review.Title, review.ReviewText, review.Rating, review.Game, _ireview);
-                ReviewCheckEnum.ReviewCheck check = newReview.checkReviewContent();
-                if (check == ReviewCheckEnum.ReviewCheck.CorrectTitleAndReviewText)
-                {
-                    newReview.AddReview();
-                    return Ok();
-                }
-                return StatusCode(400, check);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, "Internal Server Error: An unexpected error occurred.");
-            }
+            UserService userService = new UserService(_iuser);
+            ReviewService reviewService = new ReviewService(_ireview);
+            User user = userService.GetUserById(review.UserId);
 
+
+            Review newReview = new Review(review.Title, review.ReviewText, review.Rating, review.Game, user);
+            ReviewCheckEnum.ReviewCheck check = newReview.checkReviewContent();
+            if (check == ReviewCheckEnum.ReviewCheck.CorrectTitleAndReviewText)
+            {
+                reviewService.AddReview(newReview);
+                return Ok();
+            }
+            return StatusCode(400, check);
         }
 
         // PUT api/<ReviewController>/5

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePeekrReviewManagementDAL.Migrations
 {
     [DbContext(typeof(GamePeekrDBContext))]
-    [Migration("20231001134710_initialGamepeekrMigration")]
-    partial class initialGamepeekrMigration
+    [Migration("20231123173630_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace GamePeekrReviewManagementDAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GamePeekrReviewManagementDAL.ReviewEntity", b =>
+            modelBuilder.Entity("GamePeekrEntities.ReviewEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -52,9 +52,44 @@ namespace GamePeekrReviewManagementDAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("userId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("userId");
+
                     b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("GamePeekrEntities.UserEntity", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("apiKey")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("GamePeekrEntities.ReviewEntity", b =>
+                {
+                    b.HasOne("GamePeekrEntities.UserEntity", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("userId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GamePeekrEntities.UserEntity", b =>
+                {
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

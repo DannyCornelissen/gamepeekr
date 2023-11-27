@@ -1,14 +1,11 @@
-﻿
+﻿using System.Reflection;
+using GamePeekrEntities;
 
-using System.Reflection;
-using GamePeekrEntityLayer;
-
-namespace GamepeekrReviewManagement
+namespace GamepeekrReviewManagement.Classes
 {
     public class Review
     {
 
-        private readonly IReview _ireview;
         private bool _checkCompletion = false;
         private const int MAX_TITLE_LENGTH = 500;
         private const int MAX_REVIEW_LENGTH = 4000;
@@ -20,29 +17,20 @@ namespace GamepeekrReviewManagement
         public string Game { get; set; }
         public bool Flagged { get; set; }
         public int Likes { get; set; }
+        public User Reviewer { get; set; }
 
 
-        internal Review(ReviewEntity reviewEntity)
-        {
-            toReview(reviewEntity);
-        }
-
-        public Review(IReview ireview)
-        {
-           _ireview = ireview;
-        }
-
-        public Review(string title, string reviewText, int rating, string game, IReview ireview)
+        public Review(string title, string reviewText, int rating, string game, User reviewer)
         {
             Id = Guid.NewGuid();
             Title = title;
             ReviewText = reviewText;
             Rating = rating;
             Game = game;
-            _ireview = ireview;
+            Reviewer = reviewer;
         }
 
-        private void toReview(ReviewEntity reviewEntity)
+        public Review(ReviewEntity reviewEntity)
         {
             Id = reviewEntity.Id;
             Title = reviewEntity.Title;
@@ -53,7 +41,7 @@ namespace GamepeekrReviewManagement
             Likes = reviewEntity.Likes;
         }
 
-        private ReviewEntity toReviewEntity()
+        public ReviewEntity toReviewEntity()
         {
             ReviewEntity reviewEntity = new ReviewEntity();
             reviewEntity.Id = Id;
@@ -62,24 +50,16 @@ namespace GamepeekrReviewManagement
             reviewEntity.Rating = Rating;
             reviewEntity.Game = Game;
             reviewEntity.Likes = Likes;
+            reviewEntity.userId = Reviewer.Id;
             return reviewEntity;
         }
 
 
-
-        public void GetReviewById(Guid id)
+        public bool GetCheckCompletion()
         {
-           toReview(_ireview.GetReviewById(id));
+            return _checkCompletion;
         }
 
-        public void AddReview()
-        {
-            if (_checkCompletion)
-            { 
-                ReviewEntity reviewEntity = toReviewEntity();
-                _ireview.AddReview(reviewEntity);
-            }
-        }
 
         public ReviewCheckEnum.ReviewCheck checkReviewContent()
         {

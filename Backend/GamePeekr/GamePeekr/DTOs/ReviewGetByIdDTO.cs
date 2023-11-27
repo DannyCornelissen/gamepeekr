@@ -1,4 +1,4 @@
-﻿using GamepeekrReviewManagement;
+﻿using GamepeekrReviewManagement.Classes;
 
 namespace GamePeekr.DTOs
 {

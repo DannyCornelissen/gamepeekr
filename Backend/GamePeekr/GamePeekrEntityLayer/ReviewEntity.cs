@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GamePeekrEntityLayer
+namespace GamePeekrEntities
 {
     public class ReviewEntity
     {
@@ -15,6 +15,9 @@ namespace GamePeekrEntityLayer
         public string Game { get; set; }
         public bool Flagged { get; set; }
         public int Likes { get; set; }
+        public Guid userId { get; set; }
+
+        public UserEntity User { get; set; }
     }
 }
 

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Diagnostics.Metrics;
 using System.Net;
-using GamePeekrEntityLayer;
+using GamePeekrEntities;
+using GamepeekrReviewManagement.Classes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GamepeekrReviewManagement.Tests

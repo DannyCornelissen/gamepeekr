@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GamePeekrEntities;
+
+namespace GamepeekrReviewManagement.Interfaces
+{
+    public interface IUserRepository
+    {
+        public UserEntity GetUserById(Guid id);
+    }
+}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GamePeekrEntityLayer;
+using GamePeekrEntities;
 using GamePeekrReviewManagementDAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +13,7 @@ namespace GamePeekrIntigrationTest
     {
         internal static void Seed(GamePeekrDBContext context)
         {
+            var user = CreateUserEntity(context);
             // Create a few reviews
             var reviews = new List<ReviewEntity>()
             {
@@ -25,7 +26,9 @@ namespace GamePeekrIntigrationTest
                     Rating = 3,
                     Game = "Horizon Forbidden West",
                     Flagged = false,
-                    Likes = 7
+                    Likes = 7,
+                    userId =  user.Id,
+                    User = user
                 },
 
                 new ReviewEntity()
@@ -36,7 +39,9 @@ namespace GamePeekrIntigrationTest
                     Rating = 2,
                     Game = "Call of Duty: Vanguard",
                     Flagged = false,
-                    Likes = 5
+                    Likes = 5,
+                    userId =  user.Id,
+                    User = user
                 },
 
                 new ReviewEntity()
@@ -47,7 +52,9 @@ namespace GamePeekrIntigrationTest
                     Rating = 5,
                     Game = "Elden Ring",
                     Flagged = false,
-                    Likes = 10
+                    Likes = 10,
+                    userId = user.Id,
+                    User = user
                 }
 
             };
@@ -55,6 +62,19 @@ namespace GamePeekrIntigrationTest
             // Add the reviews to the database
             context.Review.AddRange(reviews);
             context.SaveChanges();
+        }
+
+        internal static UserEntity CreateUserEntity(GamePeekrDBContext context)
+        {
+            var user = new UserEntity()
+            {
+                Id = new Guid("9ada92a5-594d-4fc6-a0f9-24d240c3ba84"),
+                ApiKey = new Guid("99e715ed-5ce8-451c-a7b2-4a59cc2c33e0"),
+                UserName = "TestUser"
+            };
+            context.User.Add(user);
+            context.SaveChanges();
+            return user;
         }
     }
 }

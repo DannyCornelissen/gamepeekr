@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GamePeekrEntityLayer\GamePeekrEntityLayer.csproj" />
+    <ProjectReference Include="..\GamePeekrEntityLayer\GamePeekrEntities.csproj" />
   </ItemGroup>
 
 </Project>

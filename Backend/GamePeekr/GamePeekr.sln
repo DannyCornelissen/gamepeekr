@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamepeekrReviewManagement",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrReviewManagementDAL", "GamePeekrReviewManagementDAL\GamePeekrReviewManagementDAL.csproj", "{FE24F450-91AC-40CB-9B9C-7D5247E53003}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrEntityLayer", "GamePeekrEntityLayer\GamePeekrEntityLayer.csproj", "{147266B9-5900-48BF-89DE-CD6DBFC8E651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrEntities", "GamePeekrEntityLayer\GamePeekrEntities.csproj", "{147266B9-5900-48BF-89DE-CD6DBFC8E651}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrTest", "GamePeekrTest\GamePeekrTest.csproj", "{8595937C-1267-48A2-8D79-A389EA9E063A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamePeekrIntigrationTest", "GamePeekrIntigrationTest\GamePeekrIntigrationTest.csproj", "{C80808F9-61DD-4F1C-B88F-350046682FCA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamePeekrIntigrationTest", "GamePeekrIntigrationTest\GamePeekrIntigrationTest.csproj", "{C80808F9-61DD-4F1C-B88F-350046682FCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

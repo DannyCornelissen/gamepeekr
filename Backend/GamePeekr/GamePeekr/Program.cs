@@ -1,7 +1,6 @@
-
-
-using GamepeekrReviewManagement;
+using GamepeekrReviewManagement.Interfaces;
 using GamePeekrReviewManagementDAL;
+using GamePeekrReviewManagementDAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +35,8 @@ else
 }
 
 
-builder.Services.AddScoped<IReview, ReviewRepository>();
+builder.Services.AddScoped<IreviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 

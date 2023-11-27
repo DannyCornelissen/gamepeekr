@@ -6,11 +6,23 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GamePeekrReviewManagementDAL.Migrations
 {
     /// <inheritdoc />
-    public partial class initialGamepeekrMigration : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    apiKey = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.id);
+                });
+            
             migrationBuilder.CreateTable(
                 name: "Review",
                 columns: table => new
@@ -21,12 +33,24 @@ namespace GamePeekrReviewManagementDAL.Migrations
                     Rating = table.Column<int>(type: "int", nullable: false),
                     Game = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Flagged = table.Column<bool>(type: "bit", nullable: false),
-                    Likes = table.Column<int>(type: "int", nullable: false)
+                    Likes = table.Column<int>(type: "int", nullable: false),
+                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Review", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Review_User_userId",
+                        column: x => x.userId,
+                        principalTable: "User",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_userId",
+                table: "Review",
+                column: "userId");
         }
 
         /// <inheritdoc />
@@ -34,6 +58,9 @@ namespace GamePeekrReviewManagementDAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Review");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }
