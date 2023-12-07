@@ -12,7 +12,6 @@ namespace GamePeekrIntigrationTest
 {
     internal static class FireBaseAuthenticationUserBuilder
     {
-
         private static readonly string apiKey  = Environment.GetEnvironmentVariable("FIREBASE_API_KEY");
         private static readonly string keyPath = Environment.GetEnvironmentVariable("FIREBASE_KEY_PATH");
         private static readonly string keyJson = Environment.GetEnvironmentVariable("FIREBASE_ADMIN_CREDENTIALS");
