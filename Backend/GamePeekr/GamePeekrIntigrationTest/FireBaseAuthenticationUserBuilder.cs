@@ -30,7 +30,7 @@ namespace GamePeekrIntigrationTest
                 {
                     Credential = GoogleCredential.FromJson(keyJson),
                 });
-                throw new Exception("Yay I am here");
+                throw new Exception("I am here yay");
              
             }
             else
