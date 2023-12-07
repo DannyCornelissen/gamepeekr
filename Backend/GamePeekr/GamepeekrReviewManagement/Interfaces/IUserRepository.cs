@@ -9,6 +9,8 @@ namespace GamepeekrReviewManagement.Interfaces
 {
     public interface IUserRepository
     {
-        public UserEntity GetUserById(Guid id);
+        public UserEntity GetUserById(string id);
+
+        public void AddUserIfNotExists(UserEntity user);
     }
 }

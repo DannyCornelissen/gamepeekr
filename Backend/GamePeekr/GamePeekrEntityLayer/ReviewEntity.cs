@@ -15,7 +15,7 @@ namespace GamePeekrEntities
         public string Game { get; set; }
         public bool Flagged { get; set; }
         public int Likes { get; set; }
-        public Guid userId { get; set; }
+        public string userId { get; set; }
 
         public UserEntity User { get; set; }
     }

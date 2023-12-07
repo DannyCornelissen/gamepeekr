@@ -13,7 +13,7 @@ namespace GamePeekrTest
         {
             //Arrange
             IreviewRepository mockReview = new Mock<IreviewRepository>().Object;
-            User mockUser = new Mock<User>(Guid.NewGuid(), Guid.NewGuid(), "username").Object;
+            User mockUser = new Mock<User>("29458294heyc", "username").Object;
             ReviewService reviewService = new ReviewService(mockReview);
             List<Review> reviewList = new List<Review>();
 

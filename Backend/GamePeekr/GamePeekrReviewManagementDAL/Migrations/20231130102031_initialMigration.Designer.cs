@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamePeekrReviewManagementDAL.Migrations
 {
     [DbContext(typeof(GamePeekrDBContext))]
-    [Migration("20231123173630_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20231130102031_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,8 +52,9 @@ namespace GamePeekrReviewManagementDAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("userId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("userId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -64,14 +65,14 @@ namespace GamePeekrReviewManagementDAL.Migrations
 
             modelBuilder.Entity("GamePeekrEntities.UserEntity", b =>
                 {
-                    b.Property<Guid>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("apiKey")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("User");
                 });

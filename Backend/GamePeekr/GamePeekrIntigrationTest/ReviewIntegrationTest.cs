@@ -1,5 +1,6 @@
 
 
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using GamePeekr.DTOs;
@@ -94,6 +95,7 @@ namespace GamePeekrIntigrationTest
         public async Task ShouldPostToApi()
         {
             //arrange
+            string token = await FireBaseAuthenticationUserBuilder.Auth();
             _context.Database.EnsureDeleted();
 
             _context.Database.Migrate();
@@ -108,8 +110,11 @@ namespace GamePeekrIntigrationTest
                 game = "string",
                 userId = user.Id
             };
+            var authenticationHeaderValue = new AuthenticationHeaderValue("Bearer", token);
             string jsonContent = JsonConvert.SerializeObject(reviewData);
+             _client.DefaultRequestHeaders.Authorization = authenticationHeaderValue;
             HttpContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            
 
             //act
 

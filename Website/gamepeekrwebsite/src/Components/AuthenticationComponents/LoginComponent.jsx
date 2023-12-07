@@ -1,7 +1,7 @@
 import { auth } from "../../Utils/firebase.utils";
 import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
-
-
+import { PostData } from "../DataAccessComponents/GamePeekrAPICalls";
+import APILink from "../ReusableComponents/Config";
     // Initialize Firebase Auth provider
     const provider = new GoogleAuthProvider();
   
@@ -10,10 +10,18 @@ import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
     prompt : "select_account"
     });
 
-    const logGoogleUser = async () => {
-            const response = await signInWithPopup(auth, provider);
-            console.log(auth.currentUser);
 
+
+   
+    
+    const logGoogleUser = async () => {
+        
+            await signInWithPopup(auth, provider);
+            const data = {
+                id: auth.currentUser.uid,
+                userName: auth.currentUser.displayName
+              };
+            PostData(data,`${APILink}/api/User`)
         }
 
     export default logGoogleUser;

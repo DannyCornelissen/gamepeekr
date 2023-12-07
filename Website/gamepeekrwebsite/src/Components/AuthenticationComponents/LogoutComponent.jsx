@@ -6,9 +6,7 @@ const SignOutUser = async () =>
 {  
     try
     {
-        console.log(auth.currentUser)
         await signOut(auth)
-        console.log(auth.currentUser)
     }  
     catch
     {

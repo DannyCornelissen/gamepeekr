@@ -1,7 +1,6 @@
 import APILink from "../ReusableComponents/Config";
 import axios from "axios";
-
-
+import { auth } from "../../Utils/firebase.utils";
 
 async function GetAll(url) 
 {
@@ -48,10 +47,16 @@ async function GetById(id)
     }
 }
 
-  const PostReviewData = async (postData) => {
-    try
-    {
-      await axios.post(`${APILink}/api/Review`, postData);
+  const PostData = async (postData, url) => {
+    try {
+      const idToken = await auth.currentUser.getIdToken();
+  
+      const headers = {
+        'Authorization': `Bearer ${idToken}`,
+        'Content-Type': 'application/json', 
+      };
+  
+      await axios.post(url, postData, { headers });
     } 
     catch (error) 
     {
@@ -59,5 +64,5 @@ async function GetById(id)
     };
   }
 export {GetById};
-export {PostReviewData};
+export {PostData};
 export {GetAll};

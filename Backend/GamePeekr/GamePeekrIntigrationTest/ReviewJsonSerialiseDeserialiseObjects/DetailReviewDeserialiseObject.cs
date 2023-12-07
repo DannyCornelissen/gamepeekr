@@ -13,6 +13,6 @@ namespace GamePeekrIntigrationTest.ReviewJsonSerialiseDeserialiseObjects
         public string game { get; set; }
         public int likes { get; set; }
         public string reviewText { get; set; }
-        public Guid userId { get; set; }
+        public string userId { get; set; }
     }
 }

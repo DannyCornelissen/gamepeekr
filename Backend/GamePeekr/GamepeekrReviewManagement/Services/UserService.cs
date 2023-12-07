@@ -17,9 +17,14 @@ namespace GamepeekrReviewManagement.Services
             _iuser = userRepository;
         }
 
-        public User GetUserById(Guid id)
+        public User GetUserById(string id)
         {
           return new User(_iuser.GetUserById(id));
+        }
+
+        public void AddUserIfNotExists(User user)
+        {
+            _iuser.AddUserIfNotExists(user.toUserEntity());
         }
     }
 }

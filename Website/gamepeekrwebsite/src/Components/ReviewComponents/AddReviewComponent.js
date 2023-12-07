@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import axios from "axios";
 import APILink from '../ReusableComponents/Config';
 import { Navigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import {auth} from '../../Utils/firebase.utils'
-import {PostReviewData} from '../DataAccessComponents/GamePeekrAPICalls';
+import {PostData} from '../DataAccessComponents/GamePeekrAPICalls';
 import { GetAll } from "../DataAccessComponents/GamePeekrAPICalls";
 
 function AddReviewComponent() {
@@ -12,7 +11,8 @@ function AddReviewComponent() {
     title: "",
     reviewText: "",
     rating: 0,
-    game: ""
+    game: "",
+    userId:auth.currentUser.uid
   });
   const [navigation, setNavigation] = useState(false);
   const [errorAlert, setErrorAlert] = useState(null);
@@ -30,7 +30,7 @@ function AddReviewComponent() {
 
     try 
     {
-      await PostReviewData(postData);
+      await PostData(postData, `${APILink}/api/Review`);
       setNavigation(true);
     } 
     catch (error)
@@ -40,7 +40,6 @@ function AddReviewComponent() {
        {
         const reviewCheck = error.response.data;
         const response = await GetAll(`${APILink}/api/ReviewStatusEnum/${reviewCheck}`);
-        console.log(response) //remove later
         switch (response) {
           case "BadTitle":
             setErrorAlert("Title is too long");
@@ -54,6 +53,10 @@ function AddReviewComponent() {
           default:
             setErrorAlert("An unknown error occurred");
         }
+      }
+      else if(error.response.status === 401)
+      {
+        setErrorAlert("You are not authorised to perform this action")
       }
       else
       {

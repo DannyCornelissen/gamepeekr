@@ -68,8 +68,7 @@ namespace GamePeekrIntigrationTest
         {
             var user = new UserEntity()
             {
-                Id = new Guid("9ada92a5-594d-4fc6-a0f9-24d240c3ba84"),
-                ApiKey = new Guid("99e715ed-5ce8-451c-a7b2-4a59cc2c33e0"),
+                Id = "9ada92a5594d4fc6a0f924d240c3ba84",
                 UserName = "TestUser"
             };
             context.User.Add(user);

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GamePeekrReviewManagementDAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,14 +15,14 @@ namespace GamePeekrReviewManagementDAL.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    apiKey = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.id);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
-            
+
             migrationBuilder.CreateTable(
                 name: "Review",
                 columns: table => new
@@ -34,7 +34,7 @@ namespace GamePeekrReviewManagementDAL.Migrations
                     Game = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Flagged = table.Column<bool>(type: "bit", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
-                    userId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    userId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,7 +43,7 @@ namespace GamePeekrReviewManagementDAL.Migrations
                         name: "FK_Review_User_userId",
                         column: x => x.userId,
                         principalTable: "User",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

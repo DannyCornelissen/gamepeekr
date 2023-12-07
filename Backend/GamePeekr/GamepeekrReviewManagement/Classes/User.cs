@@ -4,23 +4,20 @@ namespace GamepeekrReviewManagement.Classes
 {
     public class User
     {
-        public Guid Id { get; set; }
-        public Guid ApiKey { get; set; }
+        public string Id { get; set; }
         public string UserName { get; set; }
         public List<Review>? Reviews { get; set; }
 
-        public User(Guid id, Guid apiKey, string userName)
+        public User(string id, string userName)
         {
             Id = id;
-            ApiKey = apiKey;
             Reviews = new List<Review>();
             UserName = userName;
         }
 
         public User(UserEntity user)
         {
-            Id = user.Id;
-            ApiKey = user.ApiKey;
+            Id = user.Id; 
             UserName = user.UserName;
         }
 
@@ -28,7 +25,6 @@ namespace GamepeekrReviewManagement.Classes
         {
             UserEntity userEntity = new UserEntity();
             userEntity.Id = Id;
-            userEntity.ApiKey = ApiKey;
             userEntity.UserName = UserName;
             return userEntity;
         }

@@ -1,7 +1,12 @@
+using System.Security.Cryptography.X509Certificates;
 using GamepeekrReviewManagement.Interfaces;
 using GamePeekrReviewManagementDAL;
 using GamePeekrReviewManagementDAL.Repositories;
+using Google.Api;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +18,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-string environment = builder.Environment.EnvironmentName;
 
+string environment = builder.Environment.EnvironmentName;
+string issuer = "https://securetoken.google.com/gamepeekr";
+string audience = "gamepeekr";
 // Use different configurations based on the environment
 if (environment == "Testing")
 {
@@ -33,6 +40,18 @@ else
         options=> options.EnableRetryOnFailure(2));
     }, ServiceLifetime.Transient);
 }
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+    options.Authority = "https://securetoken.google.com/gamepeekr";
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = issuer,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = audience,
+        ValidateLifetime = true
+    };
+});
 
 
 builder.Services.AddScoped<IreviewRepository, ReviewRepository>();

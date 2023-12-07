@@ -16,7 +16,7 @@ namespace GamePeekrReviewManagementDAL.Repositories
         }
 
 
-        public UserEntity GetUserById(Guid id)
+        public UserEntity GetUserById(string id)
         {
             try
             {
@@ -27,6 +27,24 @@ namespace GamePeekrReviewManagementDAL.Repositories
             catch (Exception sqlE)
             {
                 _logger.LogError(sqlE, "An error occurred while getting the review.");
+                throw;
+            }
+        }
+
+        public void AddUserIfNotExists(UserEntity user)
+        {
+            try
+            {
+                var userQuery = _context.User.Where(r => r.Id == user.Id);
+                if (!userQuery.Any())
+                {
+                    _context.User.Add(user);
+                    _context.SaveChanges();
+                }
+            }
+            catch (Exception sqlE)
+            {
+                _logger.LogError(sqlE, "An error occurred while adding the review.");
                 throw;
             }
         }

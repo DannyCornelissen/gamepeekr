@@ -11,7 +11,10 @@ namespace GamePeekrReviewManagementDAL
 
         public GamePeekrDBContext(DbContextOptions<GamePeekrDBContext> options) : base(options)
         {
-
+            ModelBuilder modelBuilder = new ModelBuilder();
+            modelBuilder.Entity<UserEntity>().HasMany(u => u.Reviews)
+                .WithOne(r => r.User)
+                .HasForeignKey(r => r.userId);
         }
     }
 }
