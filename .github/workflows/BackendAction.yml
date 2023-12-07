@@ -50,8 +50,13 @@ jobs:
           mkdir -p ~/.sonar/scanner
           dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/scanner
 
+      - name: Set up Firebase Admin Credentials
+        run: echo "FIREBASE_ADMIN_CREDENTIALS=$FIREBASE_ADMIN_CREDENTIALS" >> $GITHUB_ENV
      
-
+      - name: Set up Firebase API Key
+        run: |
+          echo "FIREBASE_API_KEY=$FIREBASE_API_KEY"
+          echo "##[debug] FIREBASE_API_KEY=$FIREBASE_API_KEY" >> $GITHUB_ENV
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -67,8 +72,6 @@ jobs:
 
       - name: Build Projects
         run: dotnet build --no-restore
-         echo "FIREBASE_ADMIN_CREDENTIALS=$FIREBASE_ADMIN_CREDENTIALS"
-         echo "FIREBASE_API_KEY=$FIREBASE_API_KEY"
         working-directory: Backend/GamePeekr
       
       - name: Analyze with SonarCloud
