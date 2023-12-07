@@ -30,6 +30,7 @@ namespace GamePeekrIntigrationTest
                 {
                     Credential = GoogleCredential.FromJson(keyJson),
                 });
+                Console.WriteLine("keyJson: "+ keyJson );
             }
         }
 
