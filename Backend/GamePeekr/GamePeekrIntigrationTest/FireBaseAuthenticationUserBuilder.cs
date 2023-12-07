@@ -30,7 +30,11 @@ namespace GamePeekrIntigrationTest
                 {
                     Credential = GoogleCredential.FromJson(keyJson),
                 });
-                Console.WriteLine("keyJson: "+ keyJson );
+             
+            }
+            else
+            {
+                throw new Exception("No key path or key json found");
             }
         }
 
