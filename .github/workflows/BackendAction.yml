@@ -15,10 +15,6 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    env:
-      FIREBASE_ADMIN_CREDENTIALS: ${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}
-      FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
 
     steps:
       - name: Set up JDK 17
@@ -49,7 +45,7 @@ jobs:
         run: |
           mkdir -p ~/.sonar/scanner
           dotnet tool update dotnet-sonarscanner --tool-path ~/.sonar/scanner
-          
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -99,6 +95,10 @@ jobs:
   IntegrationTest:
     needs: test
     runs-on: ubuntu-latest
+    env:
+      FIREBASE_ADMIN_CREDENTIALS: ${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}
+      FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+
     services:
       mssql:
         image: mcr.microsoft.com/mssql/server:2019-latest
