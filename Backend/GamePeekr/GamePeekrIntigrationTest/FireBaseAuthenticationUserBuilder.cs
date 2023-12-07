@@ -32,14 +32,6 @@ namespace GamePeekrIntigrationTest
                     Credential = GoogleCredential.FromJson(keyJson),
                 });
             }
-            else
-            {
-                FirebaseApp.Create(new AppOptions
-                {
-                    Credential = GoogleCredential.GetApplicationDefault(),
-                });
-            }   
-
         }
 
         internal static async Task<string> Auth()
@@ -73,24 +65,24 @@ namespace GamePeekrIntigrationTest
 
             using (HttpClient client = new HttpClient())
             {
-                // Convert the data to a JSON string
+
                 string jsonSignInData = Newtonsoft.Json.JsonConvert.SerializeObject(signInData);
 
-                // Create the HTTP content
+
                 var content = new StringContent(jsonSignInData, Encoding.UTF8, "application/json");
 
-                // Make the POST request
+
                 HttpResponseMessage response = await client.PostAsync(signInEndpoint, content);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Read and process the response
+
                     string responseBody = await response.Content.ReadAsStringAsync();
                     return responseBody;
                 }
                 else
                 {
-                    // Handle sign-in error
+
                     string errorBody = await response.Content.ReadAsStringAsync();
                     Console.WriteLine("Error signing in: " + errorBody);
                     throw new Exception("Error signing in: " + errorBody);
