@@ -90,6 +90,18 @@ jobs:
         working-directory: Backend/GamePeekr/GamePeekrIntigrationTest
         env:
          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
+      
+      
+      - name: Test Projects with Coverlet
+        run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+        working-directory: Backend/GamePeekr/GamePeekrTest
+
+      - name: Publish Code Coverage
+        uses: codecov/codecov-action@v2
+        with:
+         file: ./Backend/GamePeekr/GamePeekrTest/coverage.opencover.xml
+         flags: unittests
+         name: codecov-umbrella
 
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -158,5 +170,6 @@ jobs:
         run: |
           ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --no-restore -c Release Backend/GamePeekr
+          dotnet test --no-build --collect:"XPlat Code Coverage" --settings ./Backend/GamePeekr/GamePeekrTest/coverlet.runsettings
           ~/.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
