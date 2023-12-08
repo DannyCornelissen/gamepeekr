@@ -96,9 +96,9 @@ jobs:
 
       - name: Test Projects
         run:  dotnet test --logger "trx;LogFileName=test-results-integration.trx"
-        working-directory: Backend/GamePeekr/GamePeekrIntegrationTest
+        working-directory: Backend/GamePeekr/GamePeekrIntigrationTest
         env:
-          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
+         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
 
       - name: Test Report
         uses: dorny/test-reporter@v1
@@ -108,6 +108,7 @@ jobs:
           path: "**/test-results-integration.trx"                            
           reporter: dotnet-trx
           fail-on-error: true
+
 
   analyze-sonarcloud:
     needs: IntegrationTest
