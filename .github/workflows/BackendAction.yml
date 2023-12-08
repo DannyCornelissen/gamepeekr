@@ -99,7 +99,7 @@ jobs:
       - name: Publish Code Coverage
         uses: codecov/codecov-action@v2
         with:
-         file: ./Backend/GamePeekr/GamePeekrTest/coverage.opencover.xml
+         file: ./Backend/GamePeekr/GamePeekrTest/*.opencover.xml
          flags: unittests
          name: codecov-umbrella
 
@@ -170,6 +170,5 @@ jobs:
         run: |
           ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --no-restore -c Release Backend/GamePeekr
-          dotnet test --no-build --collect:"XPlat Code Coverage" --settings ./Backend/GamePeekr/GamePeekrTest/coverlet.runsettings
           ~/.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
