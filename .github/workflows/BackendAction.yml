@@ -83,6 +83,13 @@ jobs:
         run:  dotnet test --logger "trx;LogFileName=test-results.trx"
         working-directory: Backend/GamePeekr/GamePeekrTest
 
+      - name: Publish Code Coverage
+        uses: codecov/codecov-action@v2
+        with:
+          file: ./Backend/GamePeekr/GamePeekrTest/coverage.opencover.xml
+          flags: unittests
+          name: codecov-umbrella
+
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
