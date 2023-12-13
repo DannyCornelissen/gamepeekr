@@ -45,10 +45,6 @@ jobs:
         run:  dotnet test --logger "trx;LogFileName=test-results.trx"
         working-directory: Backend/GamePeekr/GamePeekrTest
 
-      - name: Test Projects with Coverlet
-        run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        working-directory: Backend/GamePeekr/GamePeekrTest
-
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
@@ -84,11 +80,6 @@ jobs:
         env:
          ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
       
-      
-      - name: Test Projects with Coverlet
-        run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        working-directory: Backend/GamePeekr/GamePeekrTest
-
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: always()
@@ -134,18 +125,7 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Test Projects
-        run:  dotnet test --logger "trx;LogFileName=test-results-integration.trx"
-        working-directory: Backend/GamePeekr/GamePeekrIntigrationTest
-        env:
-         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
       
-      
-      - name: Test Projects with Coverlet
-        run: dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
-        working-directory: Backend/GamePeekr/GamePeekrTest
-
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v3
@@ -181,9 +161,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          find . -type f -name '**/coverage.opencover.xml' > coverage_report_path.txt
-          cat coverage_report_path.txt
-
           dotnet tool install --global dotnet-coverage
           pushd Backend/GamePeekr
           
