@@ -183,6 +183,8 @@ jobs:
         run: |
           find . -type f -name '**/coverage.opencover.xml' > coverage_report_path.txt
           cat coverage_report_path.txt
+          
+          dotnet tool install --global coverlet.console
           pushd Backend/GamePeekr
           
           ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" \
