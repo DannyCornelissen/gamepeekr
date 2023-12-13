@@ -136,6 +136,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+         dotnet-version: 7.0.x
+
+      - name: Restore Dependencies
+        run: dotnet restore
+        working-directory: Backend/GamePeekr
+
+      - name: Build Projects
+        run: dotnet build --no-restore
+        working-directory: Backend/GamePeekr
+      
       - name: Analyze with SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
