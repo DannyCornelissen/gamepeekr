@@ -52,7 +52,7 @@ jobs:
       - name: Publish Code Coverage
         uses: codecov/codecov-action@v2
         with:
-          file: ./Backend/GamePeekr/GamePeekrTest/TestResults/**/coverage.opencover.xml
+          file: "**/coverage.opencover.xml"
           flags: unittests
           name: codecov-umbrella
 
