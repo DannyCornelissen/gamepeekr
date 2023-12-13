@@ -106,7 +106,7 @@ jobs:
     env:
       FIREBASE_ADMIN_CREDENTIALS: ${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}
       FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
-      
+
     services:
       mssql:
         image: mcr.microsoft.com/mssql/server:2019-latest
@@ -184,9 +184,11 @@ jobs:
           find . -type f -name '**/coverage.opencover.xml' > coverage_report_path.txt
           cat coverage_report_path.txt
           pushd Backend/GamePeekr
-          ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=@coverage_report_path.txt
-          dotnet build --no-restore -c Release
-          dotnet test --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+          
+          ~/.sonar/scanner/dotnet-sonarscanner begin /k:"DannyCornelissen_gamepeekr" /o:"dannycornelissen" \
+          /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths=coverage.xml
+          dotnet build --no-incremental --no-restore -c Release
+          coverlet .\GamePeekrTest\bin\Debug\net7.0\GamePeekrTest.dll --target "dotnet" --targetargs "test --no-build" -f=opencover -o="coverage.xml"          
           ~/.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           popd
 
