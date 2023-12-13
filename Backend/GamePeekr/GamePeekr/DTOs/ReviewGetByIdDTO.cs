@@ -2,7 +2,7 @@
 
 namespace GamePeekr.DTOs
 {
-    public class ReviewGetByIdDTO
+    public class ReviewGetByIdDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
@@ -11,7 +11,7 @@ namespace GamePeekr.DTOs
         public string Game { get; set; }
         public int Likes { get; set; }
 
-        public ReviewGetByIdDTO(Review review)
+        public ReviewGetByIdDto(Review review)
         {
             Id = review.Id;
             Title = review.Title;

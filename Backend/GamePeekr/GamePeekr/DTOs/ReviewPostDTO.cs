@@ -1,6 +1,6 @@
 ﻿namespace GamePeekr.DTOs
 {
-    public class ReviewPostDTO
+    public class ReviewPostDto
     {
         public string Title { get; set; }
         public string ReviewText { get; set; }

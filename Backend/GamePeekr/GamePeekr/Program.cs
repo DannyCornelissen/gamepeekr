@@ -1,12 +1,12 @@
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using GamepeekrReviewManagement.Interfaces;
 using GamePeekrReviewManagementDAL;
 using GamePeekrReviewManagementDAL.Repositories;
 using Google.Api;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -83,7 +83,8 @@ app.MapControllers();
 
 app.Run();
 
+
 public partial class Program
 {
-
+    protected Program() {}
 }

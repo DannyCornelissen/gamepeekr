@@ -2,13 +2,13 @@
 
 namespace GamePeekr.DTOs
 {
-    public class ReviewCheckEnumCollectionDTO
+    public class ReviewCheckEnumCollectionDto
     {
-        public List<ReviewCheckEnumDTO> ReviewCheckEnums { get; set; }
+        public List<ReviewCheckEnumDto> ReviewCheckEnums { get; set; }
 
-        public ReviewCheckEnumCollectionDTO()
+        public ReviewCheckEnumCollectionDto()
         {
-            ReviewCheckEnums = new List<ReviewCheckEnumDTO>();
+            ReviewCheckEnums = new List<ReviewCheckEnumDto>();
         }
     }
 }

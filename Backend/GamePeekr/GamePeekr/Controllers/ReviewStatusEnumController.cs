@@ -13,12 +13,12 @@ namespace GamePeekr.Controllers
     {
         // GET: api/<ReviewStatusEnumController>
         [HttpGet]
-        public IEnumerable<ReviewCheckEnumDTO> Get()
+        public IEnumerable<ReviewCheckEnumDto> Get()
         {
-            ReviewCheckEnumCollectionDTO reviewCheckEnumCollectionDto = new ReviewCheckEnumCollectionDTO();
+            ReviewCheckEnumCollectionDto reviewCheckEnumCollectionDto = new ReviewCheckEnumCollectionDto();
             foreach (string status in EnumHelper.EnumToList<ReviewCheckEnum.ReviewCheck>())
             {
-                ReviewCheckEnumDTO reviewCheckStatusEnum = new ReviewCheckEnumDTO();
+                ReviewCheckEnumDto reviewCheckStatusEnum = new ReviewCheckEnumDto();
                 reviewCheckStatusEnum.Name = status;
                 reviewCheckStatusEnum.id = EnumHelper.EnumParse<ReviewCheckEnum.ReviewCheck>(status);
                 reviewCheckEnumCollectionDto.ReviewCheckEnums.Add(reviewCheckStatusEnum);

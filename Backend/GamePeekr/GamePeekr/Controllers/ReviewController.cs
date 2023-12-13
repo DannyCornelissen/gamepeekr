@@ -31,12 +31,12 @@ namespace GamePeekr.Controllers
             try
             {
                 ReviewService reviewCollection = new ReviewService(_ireview);
-                ReviewGetDTOList reviewGetDTOList = new ReviewGetDTOList();
+                ReviewGetDtoList reviewGetDTOList = new ReviewGetDtoList();
                 reviewCollection.GetReviews();
 
                 foreach (Review review in reviewCollection.GetReviews())
                 {
-                    ReviewGetDTO reviewDTO = new ReviewGetDTO(review);
+                    ReviewGetDto reviewDTO = new ReviewGetDto(review);
                     reviewGetDTOList.ReviewGetDTOs.Add(reviewDTO);
                 }
 
@@ -60,7 +60,7 @@ namespace GamePeekr.Controllers
             {
                 ReviewService reviewService = new ReviewService(_ireview);
                 Review reviewById = reviewService.GetReviewById(id);
-                ReviewGetByIdDTO reviewGetByIdDTO = new ReviewGetByIdDTO(reviewById);
+                ReviewGetByIdDto reviewGetByIdDTO = new ReviewGetByIdDto(reviewById);
                 return Ok(reviewGetByIdDTO);
             }
             catch
@@ -72,7 +72,7 @@ namespace GamePeekr.Controllers
         //POST api/<ReviewController>
         [Authorize]
         [HttpPost]
-        public IActionResult Post([FromBody] ReviewPostDTO review)
+        public IActionResult Post([FromBody] ReviewPostDto review)
         {
             UserService userService = new UserService(_iuser);
             ReviewService reviewService = new ReviewService(_ireview);
@@ -89,16 +89,5 @@ namespace GamePeekr.Controllers
             return StatusCode(400, check);
         }
 
-        // PUT api/<ReviewController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ReviewController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

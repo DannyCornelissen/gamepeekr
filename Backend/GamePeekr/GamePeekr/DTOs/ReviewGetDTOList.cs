@@ -1,12 +1,12 @@
 ﻿namespace GamePeekr.DTOs
 {
-    public class ReviewGetDTOList
+    public class ReviewGetDtoList
     {
-       public List<ReviewGetDTO> ReviewGetDTOs { get; set; }
+       public List<ReviewGetDto> ReviewGetDTOs { get; set; }
 
-       public ReviewGetDTOList()
+       public ReviewGetDtoList()
        {
-           ReviewGetDTOs = new List<ReviewGetDTO>();
+           ReviewGetDTOs = new List<ReviewGetDto>();
        }
     }
 }

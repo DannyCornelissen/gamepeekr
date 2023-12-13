@@ -1,6 +1,6 @@
 ﻿namespace GamePeekr.DTOs
 {
-    public class UserPostDataDTO
+    public class UserPostDataDto
     {
         public string Id { get; set; }
         public string UserName { get; set; }

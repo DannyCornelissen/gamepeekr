@@ -1,6 +1,6 @@
 ﻿namespace GamePeekr.DTOs
 {
-    public class ReviewCheckEnumDTO
+    public class ReviewCheckEnumDto
     {
         public string Name { get; set; }
         public int id { get; set; }
