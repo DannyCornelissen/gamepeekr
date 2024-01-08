@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/DannyCornelissen/gamepeekr.git/static/css/main.6ccd65a8.css",
-    "main.js": "/DannyCornelissen/gamepeekr.git/static/js/main.a504af81.js",
-    "static/js/787.5dc09821.chunk.js": "/DannyCornelissen/gamepeekr.git/static/js/787.5dc09821.chunk.js",
-    "index.html": "/DannyCornelissen/gamepeekr.git/index.html",
-    "main.6ccd65a8.css.map": "/DannyCornelissen/gamepeekr.git/static/css/main.6ccd65a8.css.map",
-    "main.a504af81.js.map": "/DannyCornelissen/gamepeekr.git/static/js/main.a504af81.js.map",
-    "787.5dc09821.chunk.js.map": "/DannyCornelissen/gamepeekr.git/static/js/787.5dc09821.chunk.js.map"
+    "main.css": "/static/css/main.6ccd65a8.css",
+    "main.js": "/static/js/main.3e7b11fc.js",
+    "static/js/787.5dc09821.chunk.js": "/static/js/787.5dc09821.chunk.js",
+    "index.html": "/index.html",
+    "main.6ccd65a8.css.map": "/static/css/main.6ccd65a8.css.map",
+    "main.3e7b11fc.js.map": "/static/js/main.3e7b11fc.js.map",
+    "787.5dc09821.chunk.js.map": "/static/js/787.5dc09821.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6ccd65a8.css",
-    "static/js/main.a504af81.js"
+    "static/js/main.3e7b11fc.js"
   ]
 }
