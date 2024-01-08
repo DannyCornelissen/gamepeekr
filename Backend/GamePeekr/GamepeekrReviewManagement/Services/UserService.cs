@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GamePeekrEntities;
 using GamepeekrReviewManagement.Classes;
 using GamepeekrReviewManagement.Interfaces;
 
@@ -25,6 +26,12 @@ namespace GamepeekrReviewManagement.Services
         public void AddUserIfNotExists(User user)
         {
             _iuser.AddUserIfNotExists(user.toUserEntity());
+        }
+
+        public void ElevateReviewerToAdmin(string id)
+        {
+            int role = (int)UserRoles.Admin;
+            _iuser.ElevateReviewerToAdmin(id, role);
         }
     }
 }

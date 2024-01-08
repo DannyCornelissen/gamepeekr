@@ -10,10 +10,6 @@ import APILink from "../ReusableComponents/Config";
     prompt : "select_account"
     });
 
-
-
-   
-    
     const logGoogleUser = async () => {
         
             await signInWithPopup(auth, provider);
