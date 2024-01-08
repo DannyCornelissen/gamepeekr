@@ -15,7 +15,6 @@ namespace GamePeekr.Hubs
 
         public async Task SendMessageFromCode(string message)
         {
-            string time = DateTime.Now.ToString();
             await _signalrService.SendMessageToAllClients(message);
         }
 

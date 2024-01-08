@@ -199,6 +199,6 @@ jobs:
     - name: deploy to github pages
       working-directory: Website/gamepeekrwebsite
       run: |
-          npm run deploy
+          gh-pages -d build -t ${{ secrets.GH_TOKEN }}
        
 
