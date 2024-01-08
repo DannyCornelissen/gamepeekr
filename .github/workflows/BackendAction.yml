@@ -197,7 +197,12 @@ jobs:
       working-directory: Website/gamepeekrwebsite
 
     - name: deploy to github pages
-      run: npm run deploy
       working-directory: Website/gamepeekrwebsite
+      run: |
+          git remote add origin https://github.com/${{ github.repository }}
+          git fetch
+          git checkout gh-pages
+          git pull origin gh-pages
+          npm run deploy
        
 
