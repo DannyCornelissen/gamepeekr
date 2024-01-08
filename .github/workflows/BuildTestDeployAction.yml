@@ -199,9 +199,6 @@ jobs:
     - name: deploy to github pages
       working-directory: Website/gamepeekrwebsite
       run: |
-          git fetch
-          git checkout main
-          git pull origin/main
           npm run deploy
        
 
