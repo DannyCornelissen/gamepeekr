@@ -2,9 +2,9 @@ name: GamePeekrBackendBuildAndTest
 
 on:
   push:
-    branches: [ "Development" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "Development" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
@@ -170,5 +170,38 @@ jobs:
           dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'       
           ~/.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           popd
+
+  deploy:
+   runs-on: ubuntu-latest
+
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Git
+      run: |
+          git config --global user.email "danny.cornelissen38@gmail.com"
+          git config --global user.name "DannyCornelissen"
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+      working-directory: Website/gamepeekrwebsite
+
+    - name: Build React app
+      run: npm run build
+      working-directory: Website/gamepeekrwebsite
+
+    - name: deploy to github pages
+      working-directory: Website/gamepeekrwebsite
+      run: |
+          git fetch
+          git checkout main
+          git pull origin/main
+          npm run deploy
        
 
