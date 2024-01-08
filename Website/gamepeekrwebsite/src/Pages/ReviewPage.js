@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReviewRetrieverById from '../Components/ReviewComponents/ReviewRetrieverById';
 import Menu from '../Components/ReusableComponents/Menu';
 import Head from '../Components/ReusableComponents/Head';

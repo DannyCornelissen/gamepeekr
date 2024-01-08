@@ -1,4 +1,4 @@
-import React, { useEffect, setMenuItems, menuItems, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -13,14 +13,17 @@ const Menu = () => {
   useEffect(() => {
     auth.onAuthStateChanged(() => 
     {
-      if (auth.currentUser != null) {
+      if (auth.currentUser != null) 
+      {
         setMenuItems([
           { id: 1, title: 'Home' },
           { id: 2, title: 'Add new review', icon: faCirclePlus },
           { id: 4, title: 'Logout' },
-          { id: 5, title: <div>{auth.currentUser.displayName} <img id='UserImage' style={UserImage} height='30px' width='30px' src={auth.currentUser.photoURL} /></div>}
+          { id: 5, title: <div>{auth.currentUser.displayName} <img id='UserImage' alt='user img' style={UserImage} height='30px' width='30px' src={auth.currentUser.photoURL} /></div>}
         ]);
-      } else {
+      } 
+      else 
+      {
         setMenuItems([
           { id: 1, title: 'Home' },
           { id: 3, title: 'Login' },
