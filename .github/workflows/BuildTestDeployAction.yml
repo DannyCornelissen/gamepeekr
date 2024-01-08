@@ -182,7 +182,7 @@ jobs:
       run: |
           git config --global user.email "danny.cornelissen38@gmail.com"
           git config --global user.name "DannyCornelissen"
-          git remote set-url origin https://DannyCornelissen:${{ secrets.MY_PASSWORD }}@github.com/DannyCornelissen/gamepeekr.git
+          git remote set-url origin https://DannyCornelissen:${{ secrets.GH_TOKEN }}@github.com/DannyCornelissen/gamepeekr.git
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
