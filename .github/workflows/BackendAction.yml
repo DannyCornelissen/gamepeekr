@@ -185,11 +185,11 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: Website\gamepeekrwebsite
+      working-directory: Website/gamepeekrwebsite
 
     - name: Build React app
       run: npm run build
-      working-directory: Website\gamepeekrwebsite
+      working-directory: Website/gamepeekrwebsite
 
     - name: deploy to github pages
       run: npm run deploy
