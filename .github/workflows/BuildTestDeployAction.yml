@@ -191,6 +191,10 @@ jobs:
     - name: Install dependencies
       run: npm install
       working-directory: Website/gamepeekrwebsite
+      
+    - name: Install gh-pages
+      run: npm install -g gh-pages
+      working-directory: Website/gamepeekrwebsite
 
     - name: Build React app
       run: npm run build
