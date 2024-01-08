@@ -178,6 +178,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up Git
+      run: |
+          git config --global user.email "danny.cornelissen38@gmail.com"
+          git config --global user.name "DannyCornelissen"
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
