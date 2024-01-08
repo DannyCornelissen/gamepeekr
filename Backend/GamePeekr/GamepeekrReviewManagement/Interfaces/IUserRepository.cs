@@ -12,5 +12,7 @@ namespace GamepeekrReviewManagement.Interfaces
         public UserEntity GetUserById(string id);
 
         public void AddUserIfNotExists(UserEntity user);
+
+        public void ElevateReviewerToAdmin(string id, int role);
     }
 }

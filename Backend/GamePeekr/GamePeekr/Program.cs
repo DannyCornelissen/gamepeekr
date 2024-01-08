@@ -1,19 +1,18 @@
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 using GamepeekrReviewManagement.Interfaces;
 using GamePeekrReviewManagementDAL;
 using GamePeekrReviewManagementDAL.Repositories;
-using Google.Api;
 using Microsoft.AspNetCore.Authentication.JwtBearer;using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using GamePeekr.Hubs;
+using GamePeekr;
+using Google.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -41,7 +40,8 @@ else
     }, ServiceLifetime.Transient);
 }
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
     options.Authority = "https://securetoken.google.com/gamepeekr";
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -56,13 +56,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 
 builder.Services.AddScoped<IreviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-
-
-
+builder.Services.AddScoped<ISignalrService, SignalrService>();
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var corsSettings = builder.Configuration.GetSection("CorsSettings");
+var allowedOrigin = corsSettings["MainWebsite"];
+var SecondAllowedOrigin = corsSettings["AdminWebsite"];
+app.MapHub<MessageHub>("/message");
+
+
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -71,9 +75,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(builder =>
     builder
-        .WithOrigins("http://localhost:3000")
+        .SetIsOriginAllowed(origin => origin == allowedOrigin || origin == SecondAllowedOrigin)
         .AllowAnyMethod()
-        .AllowAnyHeader());
+        .AllowAnyHeader()
+        .AllowCredentials());
 
 app.UseHttpsRedirection();
 
@@ -81,7 +86,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+
 app.Run();
+
+
 
 
 public partial class Program

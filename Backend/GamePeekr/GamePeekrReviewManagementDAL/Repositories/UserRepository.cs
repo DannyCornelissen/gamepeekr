@@ -48,5 +48,11 @@ namespace GamePeekrReviewManagementDAL.Repositories
                 throw;
             }
         }
+
+        void IUserRepository.ElevateReviewerToAdmin(string id, int role)
+        {
+            _context.User.Where(r => r.Id == id).First().RoleValue = role;
+            _context.SaveChanges();
+        }
     }
 }
