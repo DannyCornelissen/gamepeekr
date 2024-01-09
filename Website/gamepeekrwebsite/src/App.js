@@ -6,7 +6,7 @@ import AddReviewPage from './Pages/AddReviewPage';
 import UserInfoPage from './Pages/UserInfoPage';
 function App() {
   return (
-<BrowserRouter>
+<BrowserRouter basename='/gamepeekr'>
       <Routes>
         
         <Route path="/" element={<Homepage />}></Route>
