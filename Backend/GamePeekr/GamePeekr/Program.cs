@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using GamePeekr.Hubs;
 using GamePeekr;
 using Google.Api;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,9 +60,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISignalrService, SignalrService>();
 var app = builder.Build();
 
-var corsSettings = builder.Configuration.GetSection("CorsSettings");
-var allowedOrigin = corsSettings["MainWebsite"];
-var SecondAllowedOrigin = corsSettings["AdminWebsite"];
+
 app.MapHub<MessageHub>("/message");
 
 
@@ -72,10 +71,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+var corsSettings = builder.Configuration.GetSection("CorsSettings");
+var allowedOrigins = corsSettings.GetSection("AllowedOrigins").Get<string[]>();
 app.UseCors(builder =>
     builder
-        .SetIsOriginAllowed(origin => origin == allowedOrigin || origin == SecondAllowedOrigin)
+        .WithOrigins(allowedOrigins)
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
