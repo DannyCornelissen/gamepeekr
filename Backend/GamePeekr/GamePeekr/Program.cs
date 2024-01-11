@@ -94,7 +94,8 @@ if (environment == "e2etesting")
         GamePeekrDBContext? context = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
         try
         {
-            context?.Database.EnsureCreated();
+            context.Database.Migrate();
+            context.Database.EnsureCreated();
         }
         catch (SqlException)
         {
