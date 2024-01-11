@@ -258,7 +258,7 @@ jobs:
     - name: run end to end
       run: |
         cd Website/gamepeekrwebsite 
-        npm install
+        npm install --legacy-peer-deps
         npx cypress run 
 
     
