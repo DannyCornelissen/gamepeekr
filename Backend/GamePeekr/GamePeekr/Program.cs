@@ -97,13 +97,13 @@ if (environment == "e2etesting")
         try
         {
             Console.WriteLine("Inside try before migrate ---- " + environment);
-            db.Database.Migrate();
-            db.Database.EnsureCreated();
             Console.WriteLine(@"INFO: ConnectionString: " + db.Database.GetDbConnection().ConnectionString
                                                           + "\n DataBase: " + db.Database.GetDbConnection().Database
                                                           + "\n DataSource: " + db.Database.GetDbConnection().DataSource
                                                           + "\n ServerVersion: " + db.Database.GetDbConnection().ServerVersion
                                                           + "\n TimeOut: " + db.Database.GetDbConnection().ConnectionTimeout);
+            db.Database.Migrate();
+            db.Database.EnsureCreated();
         }
         catch (SqlException)
         {
