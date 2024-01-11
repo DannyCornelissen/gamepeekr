@@ -86,6 +86,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+Console.WriteLine("Environment: " + environment);   
 if (environment == "e2etesting")
 {
     using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())

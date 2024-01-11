@@ -4,7 +4,7 @@ import APILink from "../../../src/Components/ReusableComponents/Config"
 
 
 describe('template spec', () => {
-  it('passes', async() => {
+  it('passes', () => {
     cy.visit('http://localhost:3000/')
 
     cy.signInWithEmailAndPassword(auth, 'testUser@test.com', 'password').then(() => {

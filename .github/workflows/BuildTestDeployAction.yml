@@ -100,11 +100,17 @@ jobs:
     - name: run mssql 
       run: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Butterfly@1' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 
+    - name: build Backend
+      run: docker build -t api Backend/GamePeekr/
+   
+    - name: build Website
+      run: docker build -t website Website/gamepeekrwebsite/
+
     - name: run Backend
-      run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -p 32001:443 Backend/GamePeekr
+      run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -p 32001:443 api
 
     - name: run Website
-      run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 Website/gamepeekrwebsite
+      run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 website
 
     - name: run end to end
       run: |
@@ -273,7 +279,7 @@ jobs:
       run: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Butterfly@1' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 
     - name: run Backend
-      run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -p 32001:443 dannycornelissen/gamepeekrbackend:api
+      run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -e 'ENV=e2etesting' -p 32001:443 dannycornelissen/gamepeekrbackend:api
 
     - name: run Website
       run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
@@ -288,8 +294,8 @@ jobs:
     - name: log
       run: |
         docker ps -a
-        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:api --format="{{.ID}}")
-        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:website --format="{{.ID}}")
+        docker logs dannycornelissen/gamepeekrbackend:website
+        docker logs dannycornelissen/gamepeekrbackend:api
     
 
 
