@@ -171,7 +171,7 @@ jobs:
           ~/.sonar/scanner/dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           popd
 
-  deploy:
+  deploy-to-gh-pages:
    runs-on: ubuntu-latest
 
    steps:
@@ -204,20 +204,13 @@ jobs:
       working-directory: Website/gamepeekrwebsite
       run: |
           npm run deploy
-    
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
 
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: Clear NuGet Cache
-      run: dotnet nuget locals all --clear
+  deploy:
+    runs-on: ubuntu-latest
 
-    - name: Publish Project
-      run: dotnet publish Backend/GamePeekr/GamePeekr/GamePeekr.csproj --configuration Release -o out
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Build image
       run: docker build -t dannycornelissen/gamepeekrbackend:api Backend/GamePeekr/
@@ -246,6 +239,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Log in to the docker hub
+      uses: docker/login-action@v2
+      with:
+        username: dannycornelissen
+        password: ${{ secrets.DOCKERHUBPASSWORD }}
    
     - name: run mssql 
       run: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Butterfly@1' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
