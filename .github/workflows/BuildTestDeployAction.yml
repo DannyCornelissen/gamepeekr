@@ -224,9 +224,6 @@ jobs:
 
     - name: Build image Website
       run: docker build -t dannycornelissen/gamepeekrbackend:website Website/gamepeekrwebsite/
-
-    - name: build database
-      run: docker-compose build
     
 
     - name: Log in to the docker hub
@@ -241,9 +238,32 @@ jobs:
     - name: Push Website Docker Image to docker hub
       run: docker push dannycornelissen/gamepeekrbackend:website
 
+  deploy-test:
+    runs-on: ubuntu-latest
+   
+    needs: deploy
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+   
+    - name: run mssql 
+      run: docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Butterfly@1' -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+
+    - name: run Backend
+      run: docker run -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -p 32001:443 dannycornelissen/gamepeekrbackend:api
+
+    - name: run Website
+      run: docker run -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
+
+    - name: log
+      run: |
+        docker ps -a
+        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:api --format="{{.ID}}")
+        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:website --format="{{.ID}}")
     
-    - name: push database
-      run: docker push dannycornelissen/gamepeekrbackend:gamepeekrdatabase
+
+
 
 
 

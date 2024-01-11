@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using GamePeekr.Hubs;
 using GamePeekr;
 using Google.Api;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -85,7 +86,20 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+if (environment == "e2etesting")
+{
+    using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+    {
+        GamePeekrDBContext? context = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
+        try
+        {
+            context?.Database.EnsureCreated();
+        }
+        catch (SqlException)
+        {
+        }
+    }
+}
 
 app.Run();
 
