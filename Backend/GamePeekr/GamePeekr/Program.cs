@@ -105,8 +105,10 @@ if (environment == "e2etesting")
             db.Database.Migrate();
             db.Database.EnsureCreated();
         }
-        catch (SqlException)
+        catch (SqlException ex)
         {
+            Console.WriteLine("Inside catch");
+            Console.Write(ex.Message);
         }
     }
 }
