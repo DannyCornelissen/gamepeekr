@@ -226,7 +226,10 @@ jobs:
       run: docker build -t dannycornelissen/gamepeekrbackend:website Website/gamepeekrwebsite/
 
     - name: build database
-      run: docker build -t dannycornelissen/gamepeekrbackend:gamepeekrdatabase
+      run: docker-compose up
+    
+    - name: Tag database image
+      run: docker tag mcr.microsoft.com/mssql/server mcr.microsoft.com/mssql/server:gamepeekrdatabase
 
     - name: Log in to the docker hub
       uses: docker/login-action@v2
