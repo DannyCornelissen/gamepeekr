@@ -225,6 +225,9 @@ jobs:
     - name: Build image Website
       run: docker build -t dannycornelissen/gamepeekrbackend:website Website/gamepeekrwebsite/
 
+    - name: build database
+      run: docker build -t dannycornelissen/gamepeekrbackend:gamepeekrdatabase
+
     - name: Log in to the docker hub
       uses: docker/login-action@v2
       with:
@@ -236,6 +239,10 @@ jobs:
 
     - name: Push Website Docker Image to docker hub
       run: docker push dannycornelissen/gamepeekrbackend:website
+
+    
+    - name: push database
+      run: docker push dannycornelissen/gamepeekrbackend:gamepeekrdatabase
 
 
 
