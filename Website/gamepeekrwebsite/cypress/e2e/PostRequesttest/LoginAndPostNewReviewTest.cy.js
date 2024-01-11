@@ -1,20 +1,19 @@
 import { auth } from "../../../src/Utils/firebase.utils"
 import APILink from "../../../src/Components/ReusableComponents/Config"
-
-
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { PostData } from "../../../src/Components/DataAccessComponents/GamePeekrAPICalls"
 
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('http://localhost:3000/gamepeekr')
 
-    cy.signInWithEmailAndPassword(auth, 'testUser@test.com', 'password').then(() => {
+      signInWithEmailAndPassword(auth, 'testUser@test.com', 'password').then(() => {
       const data = {
         id: auth.currentUser.uid,
         userName: auth.currentUser.email
       }
-        cy.PostData(data,`${APILink}/api/User`)
+         PostData(data,`${APILink}/api/User`)
     });
-
 
 
       cy.get('#Menu').should('exist')

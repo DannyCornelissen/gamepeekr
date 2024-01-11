@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes',  () => {
-    cy.visit('http://localhost:3000/')
+    cy.visit('http://localhost:3000/gamepeekr')
     cy.wait(1000)
     cy.get('table').should('exist').find('tr')
     .contains('review of elden ring').should('exist')
