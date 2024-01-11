@@ -89,12 +89,14 @@ app.MapControllers();
 Console.WriteLine("Environment: " + environment);   
 if (environment == "e2etesting")
 {
+    Console.WriteLine("you are here!!!!!!!! " + environment);
     using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
     {
+        Console.WriteLine("Inside servicescope |||||" + environment);
         GamePeekrDBContext? db = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
         try
         {
-
+            Console.WriteLine("Inside try before migrate ---- " + environment);
             db.Database.Migrate();
             db.Database.EnsureCreated();
             Console.WriteLine(@"INFO: ConnectionString: " + db.Database.GetDbConnection().ConnectionString
