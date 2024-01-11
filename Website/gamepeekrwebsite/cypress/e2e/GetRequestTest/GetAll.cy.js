@@ -7,7 +7,7 @@ describe('template spec', () => {
     .should('have.text', 'string')
 
     cy.get('table').find('tr')
-    .contains('testin').should('exist')
+    .contains('review of elden ring').should('exist')
 
   })
 })
