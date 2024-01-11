@@ -59,12 +59,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddScoped<IreviewRepository, ReviewRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISignalrService, SignalrService>();
+
+
+
 var app = builder.Build();
 
 
 app.MapHub<MessageHub>("/message");
-
-
 
 
 if (app.Environment.IsDevelopment())
@@ -86,36 +87,27 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-Console.WriteLine("Environment: " + environment);   
-if (environment == "e2etesting")
+
+Console.WriteLine("Environment: " + environment);
+if (environment == "Development")
 {
-    Console.WriteLine("you are here!!!!!!!! " + environment);
-    using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
+    using (var scope = app.Services.CreateScope())
     {
-        Console.WriteLine("Inside servicescope |||||" + environment);
-        GamePeekrDBContext? db = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
+        var dbContext = scope.ServiceProvider.GetRequiredService<GamePeekrDBContext>();
         try
         {
-            Console.WriteLine("Inside try before migrate ---- " + environment);
-            Console.WriteLine(@"INFO: ConnectionString: " + db.Database.GetDbConnection().ConnectionString
-                                                          + "\n DataBase: " + db.Database.GetDbConnection().Database
-                                                          + "\n DataSource: " + db.Database.GetDbConnection().DataSource
-                                                          + "\n ServerVersion: " + db.Database.GetDbConnection().ServerVersion
-                                                          + "\n TimeOut: " + db.Database.GetDbConnection().ConnectionTimeout);
-            db.Database.Migrate();
-            db.Database.EnsureCreated();
+            dbContext.Database.Migrate();
         }
-        catch (SqlException ex)
+        catch (Exception e)
         {
-            Console.WriteLine("Inside catch");
-            Console.Write(ex.Message);
+            Console.WriteLine(e);
         }
+      
     }
 }
 
+
 app.Run();
-
-
 
 
 public partial class Program
