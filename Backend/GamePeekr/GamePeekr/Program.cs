@@ -89,7 +89,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 Console.WriteLine("Environment: " + environment);
-if (environment == "Development")
+if (environment == "e2etesting")
 {
     using (var scope = app.Services.CreateScope())
     {
