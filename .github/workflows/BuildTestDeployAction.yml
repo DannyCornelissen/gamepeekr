@@ -226,7 +226,7 @@ jobs:
       run: docker build -t dannycornelissen/gamepeekrbackend:website Website/gamepeekrwebsite/
 
     - name: build database
-      run: docker-compose up
+      run: docker-compose build
     
     - name: Tag database image
       run: docker tag mcr.microsoft.com/mssql/server mcr.microsoft.com/mssql/server:gamepeekrdatabase
