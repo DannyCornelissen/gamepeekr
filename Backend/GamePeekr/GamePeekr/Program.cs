@@ -91,11 +91,17 @@ if (environment == "e2etesting")
 {
     using (IServiceScope serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope())
     {
-        GamePeekrDBContext? context = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
+        GamePeekrDBContext? db = serviceScope.ServiceProvider.GetService<GamePeekrDBContext>();
         try
         {
-            context.Database.Migrate();
-            context.Database.EnsureCreated();
+
+            db.Database.Migrate();
+            db.Database.EnsureCreated();
+            Console.WriteLine(@"INFO: ConnectionString: " + db.Database.GetDbConnection().ConnectionString
+                                                          + "\n DataBase: " + db.Database.GetDbConnection().Database
+                                                          + "\n DataSource: " + db.Database.GetDbConnection().DataSource
+                                                          + "\n ServerVersion: " + db.Database.GetDbConnection().ServerVersion
+                                                          + "\n TimeOut: " + db.Database.GetDbConnection().ConnectionTimeout);
         }
         catch (SqlException)
         {
