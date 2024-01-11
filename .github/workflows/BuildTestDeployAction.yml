@@ -255,6 +255,13 @@ jobs:
     - name: run Website
       run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
 
+    - name: run end to end
+      run: |
+        cd Website/gamepeekrwebsite 
+        npm install
+        npx cypress run 
+
+    
     - name: log
       run: |
         docker ps -a
