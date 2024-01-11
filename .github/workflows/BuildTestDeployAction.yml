@@ -295,8 +295,8 @@ jobs:
       if: always()
       run: |
         docker ps -a
-        docker logs dannycornelissen/gamepeekrbackend:website
-        docker logs dannycornelissen/gamepeekrbackend:api
+        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:api --format="{{.ID}}")
+        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:website --format="{{.ID}}")
     
 
 
