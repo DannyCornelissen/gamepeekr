@@ -24,7 +24,7 @@ string environment = builder.Environment.EnvironmentName;
 string issuer = "https://securetoken.google.com/gamepeekr";
 string audience = "gamepeekr";
 // Use different configurations based on the environment
-if (environment == "Testing")
+if (environment == "Testing" || environment == "e2etesting")
 {
     builder.Services.AddDbContext<GamePeekrDBContext>(options =>
     {
