@@ -89,44 +89,9 @@ jobs:
           reporter: dotnet-trx
           fail-on-error: true
 
-  e2e-test:
-    runs-on: ubuntu-latest
-   
-    services:
-      mssql:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        env:
-          SA_PASSWORD: Butterfly@1
-          ACCEPT_EULA: Y
-        ports:
-          - 1433:1433
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: run end to end
-      run: |
-        ASPNETCORE_ENVIRONMENT=e2etesting
-        nohup dotnet run --project Backend/GamePeekr/GamePeekr > backend_log.txt &
-        cd Website/gamepeekrwebsite
-        nohup npm install && npm start > website_log.txt &
-        echo "Starting Cypress tests"
-        sleep 30s
-        npm install
-        npx cypress run 
-        exit
-
-    - name: log
-      if: always()
-      run: |
-        cat backend_log.txt
-        cat website_log.txt
-  
-
   Analyze:
     runs-on: ubuntu-latest
-    needs: e2e-test
+    needs: IntegrationTest
 
     env:
       FIREBASE_ADMIN_CREDENTIALS: ${{ secrets.FIREBASE_ADMIN_CREDENTIALS }}
@@ -241,6 +206,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: Analyze
 
     steps:
     - name: Checkout code
@@ -264,55 +230,6 @@ jobs:
 
     - name: Push Website Docker Image to docker hub
       run: docker push dannycornelissen/gamepeekrbackend:website
-
-  deploy-test:
-    runs-on: ubuntu-latest
-   
-    needs: deploy
-    services:
-      mssql:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        env:
-          SA_PASSWORD: Butterfly@1
-          ACCEPT_EULA: Y
-        ports:
-          - 1433:1433
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Log in to the docker hub
-      uses: docker/login-action@v2
-      with:
-        username: dannycornelissen
-        password: ${{ secrets.DOCKERHUBPASSWORD }}
-  
-   
-    - name: sleep
-      run: sleep 30s
-   
-    - name: run Backend
-      run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -e 'ENV=e2etesting' -p 32001:443 dannycornelissen/gamepeekrbackend:api
-      env:
-        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
-    
-    - name: run Website
-      run: docker run -d -e 'BACKEND_URL=https://localhost:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
-
-    - name: run end to end
-      run: |
-        cd Website/gamepeekrwebsite 
-        npm install
-        npx cypress run 
-
-    
-    - name: log
-      if: always()
-      run: |
-        docker ps -a
-        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:api --format="{{.ID}}")
-        docker logs $(docker ps -a -q --filter ancestor=dannycornelissen/gamepeekrbackend:website --format="{{.ID}}")
     
 
 
