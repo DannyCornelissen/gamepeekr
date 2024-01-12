@@ -289,6 +289,8 @@ jobs:
    
     - name: run Backend
       run: docker run -d -e 'ASPNETCORE_ENVIRONMENT=e2etesting' -e 'ENV=e2etesting' -p 32001:443 dannycornelissen/gamepeekrbackend:api
+      env:
+        ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
     
     - name: run Website
       run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
