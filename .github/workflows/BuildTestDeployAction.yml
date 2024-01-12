@@ -108,18 +108,24 @@ jobs:
     - name: run Backend
       run: | 
         ASPNETCORE_ENVIRONMENT=e2etesting
-        dotnet run --project Backend/GamePeekr/GamePeekr
+        nohup dotnet run --project Backend/GamePeekr/GamePeekr > backend_log.txt
 
     - name: run Website
       run: | 
         cd Website/gamepeekrwebsite
-        npm install && npm start
+        nohup npm install && npm start > website_log.txt
 
     - name: run end to end
       run: |
         cd Website/gamepeekrwebsite 
         npm install
         npx cypress run 
+
+    - name: log
+      if: always()
+      run: |
+        cat backend_log.txt
+        cat website_log.txt
   
 
   Analyze:
