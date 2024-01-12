@@ -108,7 +108,7 @@ jobs:
     - name: run Backend
       run: | 
         ASPNETCORE_ENVIRONMENT=e2etesting
-        dotnet run --project Backend/GamePeekr
+        dotnet run --project Backend/GamePeekr/GamePeekr
 
     - name: run Website
       run: | 
