@@ -293,7 +293,7 @@ jobs:
         ConnectionStrings__DefaultConnection: "Server=localhost,1433;Database=TestGamePeekrDB; TrustServerCertificate=True; User Id=sa;Password=Butterfly@1;"
     
     - name: run Website
-      run: docker run -d -e 'BACKEND_URL=https://host.docker.internal:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
+      run: docker run -d -e 'BACKEND_URL=https://localhost:32001' -p 3000:3000 dannycornelissen/gamepeekrbackend:website
 
     - name: run end to end
       run: |
