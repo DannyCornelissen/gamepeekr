@@ -87,26 +87,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-Console.WriteLine("Environment: " + environment);
-if (environment == "e2etesting")
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<GamePeekrDBContext>();
-        try
-        {
-            dbContext.Database.Migrate();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
-      
-    }
-}
-
-
 app.Run();
 
 
