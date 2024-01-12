@@ -108,9 +108,9 @@ jobs:
     - name: run end to end
       run: |
         ASPNETCORE_ENVIRONMENT=e2etesting
-        nohup dotnet run --project Backend/GamePeekr/GamePeekr > backend_log.txt
+        nohup dotnet run --project Backend/GamePeekr/GamePeekr > backend_log.txt &
         cd Website/gamepeekrwebsite
-        nohup npm install && npm start > website_log.txt
+        nohup npm install && npm start > website_log.txt &
         echo "Starting Cypress tests"
         sleep 30s
         npm install
